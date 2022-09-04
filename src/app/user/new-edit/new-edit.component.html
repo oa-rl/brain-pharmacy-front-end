@@ -1,0 +1,30 @@
+
+<div class="flex h-screen">
+  <div class="w-full flex flex-col justify-center items-center mt-5">
+    <div class="max-w-md">
+      <div class="text-base breadcrumbs">
+        <ul>
+          <li><a>Inicio</a></li> 
+          <li>Nuevo Usuario</li>
+        </ul>
+      </div>
+      <input type="text" placeholder="Nombres" class="input input-bordered input-primary w-full" />
+      <input type="text" placeholder="Apellidos" class="input input-bordered input-primary w-full my-2" />
+      <input type="emailo" placeholder="Email" class="input input-bordered input-primary w-full" />
+      <div class="flex flex-col md:flex-row my-2">
+        <input type="password" placeholder="Contraseña" class="input input-bordered input-primary w-full mb-2 md:mb-0 md:mr-1" />
+        <input type="password" placeholder="Confirmar contraseña" class="input input-bordered input-primary w-full md:ml-1" />
+      </div> 
+      <select class="select select-bordered select-primary w-full ">
+        <option disabled selected>Perfil</option>
+        <option>Auto</option>
+        <option>Dark mode</option>
+        <option>Light mode</option>
+      </select> 
+      <div class="w-full flex flex-col md:flex-row justify-between my-5 ">
+        <brain-save-button  (do)="save($event)" class="mb-2 md:mb-0"></brain-save-button>
+        <brain-cancel-button title="Cancelar" message="Quiere cancelar el registro ?" (doIt)="cancel($event)"></brain-cancel-button>
+      </div>
+    </div>
+  </div>
+</div>

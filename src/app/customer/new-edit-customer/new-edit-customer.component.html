@@ -1,0 +1,26 @@
+<div class="flex h-screen">
+    <div class="w-full flex flex-col justify-center items-center mt-5">
+        <div class="max-w-md">
+            <div class="text-base breadcrumbs">
+                <ul>
+                    <li><a>Inicio</a></li>
+                    <li>Nuevo Cliente</li>
+                </ul>
+            </div>
+            <input type="text" placeholder="Nombres" class="input input-bordered input-primary w-full" />
+            <input type="text" placeholder="Apellidos" class="input input-bordered input-primary w-full my-5" />
+            <input type="text" placeholder="NIT" class="input input-bordered input-primary w-full" />
+            <input type="email" placeholder="Email" class="input input-bordered input-primary my-5 w-full" />
+            <textarea class="textarea input-bordered textarea-primary w-full" placeholder="Dirección"></textarea>
+            <div class="w-full flex justify-between my-5">
+                <input type="tel" placeholder="Telefono 1" class="input input-bordered input-primary w-full mb-2 md:mb-0 md:mr-1" />
+                <input type="tel" placeholder="Telefono 2" class="input input-bordered input-primary w-full md:ml-1" />
+            </div>
+            <div class="w-full flex flex-col md:flex-row justify-between my-5 ">
+                <brain-save-button (do)="save($event)" class="mb-5 md:mb-0"></brain-save-button>
+                <brain-cancel-button title="Cancelar" message="Quiere cancelar el registro ?" (doIt)="cancel($event)">
+                </brain-cancel-button>
+            </div>
+        </div>
+    </div>
+</div>

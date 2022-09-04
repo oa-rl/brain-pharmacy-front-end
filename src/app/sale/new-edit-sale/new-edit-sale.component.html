@@ -1,0 +1,33 @@
+<form [formGroup]="form">
+  <div class="flex justify-center items-center h-screen">
+    <div class="flex flex-col w-full max-w-md">
+      <div class="text-base breadcrumbs ">
+        <ul>
+          <li><a>Inicio</a></li>
+          <li>Nueva venta</li>
+        </ul>
+      </div>
+      <input formControlName="name" type="text" placeholder="Cliente"
+        class="input input-bordered input-primary w-full" />
+      <input formControlName="name" type="text" placeholder="Producto"
+        class="input input-bordered input-primary w-full my-5" />
+      <input formControlName="name" type="text" placeholder="Catnidad"
+        class="input input-bordered input-primary w-full mb-5" />
+      <div class="border-solid border border-black rounded-lg h-96 overflow-scroll p-1">
+        <div class="w-full flex">
+          <div class="w-11/12 flex justify-center items-center">
+            Aspirina 500mg Bayer Q1.00 x 10 = Q10.00
+          </div>
+          <div class="w-1/12 flex justify-center items-center">
+            X
+          </div>
+        </div>
+      </div>
+      <div class="w-full flex justify-between my-5">
+        <brain-save-button (do)="save($event)"></brain-save-button>
+        <brain-cancel-button title="Cancelar" message="Quiere cancelar el registro ?" (doIt)="cancel($event)">
+        </brain-cancel-button>
+      </div>
+    </div>
+  </div>
+</form>
