@@ -12,6 +12,7 @@ import { UserModule } from './user/user.module';
 import { NgxLocalStorageModule } from 'ngx-localstorage';
 import { CustomerModule } from './customer/customer.module';
 import { SaleModule } from './sale/sale.module';
+import { DirectivesModule } from './directives/directives.module';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { SaleModule } from './sale/sale.module';
     SaleModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    DirectivesModule
   ],
   providers: [
   ],

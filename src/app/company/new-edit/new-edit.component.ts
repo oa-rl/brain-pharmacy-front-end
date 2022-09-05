@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { Notify } from 'notiflix/build/notiflix-notify-aio';
+
 import { CoreService } from 'src/app/core/core.service';
 import { FormComponent } from 'src/app/core/form.component';
 
@@ -29,13 +29,14 @@ export class NewEditComponent extends FormComponent implements OnInit {
   }
 
   cancel(opt: boolean) {
-    alert(opt);
+    if(opt) {
+      this._form.reset();
+    }
   }
 
   save(value: boolean) {
     if (value) {
-      console.log(this._form);
-      Notify.success('Guardado', {}, { backOverlayColor: '#4cda64' });
+      this.notifySuccess();
       setTimeout(() => {
         this.core.savingOff();
       }, 3000);

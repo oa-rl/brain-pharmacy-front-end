@@ -1,4 +1,4 @@
-<button (click)="save()" class="btn btn-block md:btn-lg" [ngClass]="core.isSaving ? 'animate__animated animate__heartBeat animate__infinite btn-success loading' : 'btn-outline btn-primary'">
+<button (click)="save()" [disabled]="isDesabled" class="btn btn-block btn-sm" [ngClass]="core.isSaving ? 'animate__animated animate__heartBeat animate__infinite btn-success loading' : 'btn-outline btn-primary'">
     {{core.isSaving ? 'Guardando' : 'Guardar'}}
 </button>
 

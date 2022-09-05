@@ -8,11 +8,11 @@
             <li>Nueva Empresa</li>
           </ul>
         </div>
-        <input formControlName="name" type="text" placeholder="Nombre" class="input input-bordered input-primary w-full" />
-        <textarea formControlName="address" class="textarea input-bordered textarea-primary w-full my-5" placeholder="Dirección"></textarea>
-        <input formControlName="nit" type="text" placeholder="NIT" class="input input-bordered input-primary w-full" />
+        <input [brainInputError]="inputHasError('name')" formControlName="name" type="text" placeholder="Nombre"  />
+        <textarea  formControlName="address" [brainInputError]="inputHasError('address')" ngClass="mt-5 mb-2 h-40 " placeholder="Dirección"></textarea>
+        <input [brainInputError]="inputHasError('nit')" formControlName="nit" type="text" placeholder="NIT"  />
         <div class="w-full flex justify-between my-5">
-          <brain-save-button (do)="save($event)"></brain-save-button>
+          <brain-save-button [isDesabled]="!formIsValid()" (do)="save($event)"></brain-save-button>
           <brain-cancel-button title="Cancelar" message="Quiere cancelar el registro ?" (doIt)="cancel($event)">
           </brain-cancel-button>
         </div>

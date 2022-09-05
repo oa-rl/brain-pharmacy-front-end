@@ -6,17 +6,21 @@ import { CoreService } from 'src/app/core/core.service';
   templateUrl: './save-button.component.html',
   styleUrls: ['./save-button.component.scss']
 })
-export class SaveButtonComponent implements OnInit {
+export class SaveButtonComponent {
+  private _isDesabled: boolean = false;
 
-  @Input() stop: boolean  = true;
   @Output() do = new EventEmitter<boolean>();
 
-  
+  @Input() set isDesabled(v: boolean) {
+    this._isDesabled = v;
+  }
+
+  get isDesabled(): boolean {
+    return this._isDesabled;
+  }
   
   constructor(public core: CoreService) { }
 
-  ngOnInit(): void {
-  }
 
   save() {
     this.core.savingOn();

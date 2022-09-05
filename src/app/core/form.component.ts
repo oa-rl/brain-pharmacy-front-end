@@ -1,11 +1,29 @@
 import { Component, Input } from "@angular/core";
-import { FormGroup } from "@angular/forms";
+import { FormControl, FormGroup } from "@angular/forms";
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
 @Component({
     template: ''
 })
 export abstract class FormComponent {
     protected _form: any;
+
+    inputHasError(name: string): boolean {  
+        const form: FormControl  = this._form.get(name);
+        if(form.pristine && !form.touched) {
+            return false;
+        } else {
+            return (form.status === 'INVALID') ? true : false;
+        }
+    }
+
+    formIsValid(): boolean {
+        return (this._form.status === 'INVALID') ? false : true;
+    }
+
+    notifySuccess() {
+        Notify.success('Guardado', {}, { backOverlayColor: '#4cda64' });
+    }
 
 
     get form(): FormGroup {
