@@ -6,6 +6,7 @@ import { NewEditComponent } from './new-edit/new-edit.component';
 import { ListComponent } from './list/list.component';
 import { WidgetsModule } from '../widgets/widgets.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { DirectivesModule } from '../directives/directives.module';
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     BranchRoutingModule,
     WidgetsModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    DirectivesModule
   ]
 })
 export class BranchModule { }
