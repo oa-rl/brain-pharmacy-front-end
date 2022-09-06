@@ -27,7 +27,9 @@ export class NewEditProductComponent extends FormComponent implements OnInit {
   }
 
   cancel(opt: boolean) {
-    alert(opt);
+    if(opt) {
+      this._form.reset();
+    }
   }
 
   save(value: boolean) {

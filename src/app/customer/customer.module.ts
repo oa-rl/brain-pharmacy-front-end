@@ -6,6 +6,7 @@ import { ListCustomerComponent } from './list-customer/list-customer.component';
 import { NewEditCustomerComponent } from './new-edit-customer/new-edit-customer.component';
 import { WidgetsModule } from '../widgets/widgets.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { DirectivesModule } from '../directives/directives.module';
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     CustomerRoutingModule,
     WidgetsModule,
     FormsModule, 
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    DirectivesModule
   ]
 })
 export class CustomerModule { }

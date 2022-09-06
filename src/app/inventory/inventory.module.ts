@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { DirectivesModule } from '../directives/directives.module';
 import { WidgetsModule } from '../widgets/widgets.module';
 import { InventoryRoutingModule } from './inventory-routing.module';
 import { ListMedicalHouseComponent } from './list-medical-house/list-medical-house.component';
@@ -30,7 +31,8 @@ import { NewEditSizeComponent } from './new-edit-size/new-edit-size.component';
     InventoryRoutingModule,
     WidgetsModule,
     FormsModule, 
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    DirectivesModule
   ]
 })
 export class InventoryModule { }

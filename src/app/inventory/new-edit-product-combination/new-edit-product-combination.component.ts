@@ -81,7 +81,9 @@ export class NewEditProductCombinationComponent extends FormComponent implements
   }
 
   cancel(opt: boolean) {
-    alert(opt);
+    if(opt) {
+      this._form.reset();
+    }
   }
 
   save(value: boolean) {

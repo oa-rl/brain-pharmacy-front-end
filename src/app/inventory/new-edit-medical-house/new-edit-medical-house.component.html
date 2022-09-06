@@ -7,9 +7,9 @@
           <li>Nueva Casa Medica</li>
         </ul>
       </div>
-      <input type="text" formControlName="name" placeholder="Casa meidca" class="input input-bordered input-primary w-full" />
+      <input type="text" formControlName="name" placeholder="Casa meidca" [brainInputError]="inputHasError('name')" />
       <div class="w-full flex justify-between my-5">
-        <brain-save-button (do)="save($event)"></brain-save-button>
+        <brain-save-button [isDesabled]="!formIsValid()" (do)="save($event)"></brain-save-button>
         <brain-cancel-button title="Cancelar" message="Quiere cancelar el registro ?" (doIt)="cancel($event)">
         </brain-cancel-button>
       </div>

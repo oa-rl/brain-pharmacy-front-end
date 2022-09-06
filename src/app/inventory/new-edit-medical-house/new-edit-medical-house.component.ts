@@ -27,7 +27,9 @@ export class NewEditMedicalHouseComponent extends FormComponent implements OnIni
   }
 
   cancel(opt:boolean) {
-    alert(opt);
+    if(opt) {
+      this._form.reset();
+    }
   }
 
   save(value: boolean) {

@@ -8,9 +8,9 @@
         </ul>
       </div>
       <input formControlName="name" type="text" placeholder="Nombre"
-        class="input input-bordered input-primary w-full" />
+      [brainInputError]="inputHasError('name')"  />
       <div class="w-full flex justify-between my-5">
-        <brain-save-button (do)="save($event)"></brain-save-button>
+        <brain-save-button [isDesabled]="!formIsValid()" (do)="save($event)"></brain-save-button>
         <brain-cancel-button title="Cancelar" message="Quiere cancelar el registro ?" (doIt)="cancel($event)">
         </brain-cancel-button>
       </div>
