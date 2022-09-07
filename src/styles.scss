@@ -16,20 +16,20 @@ html, body {
 
 /* width */
 ::-webkit-scrollbar {
-    width: 10px;
+    width: 0px;
   }
   
   /* Track */
   ::-webkit-scrollbar-track {
-    background: white;
+    background: transparent;
   }
   
   /* Handle */
   ::-webkit-scrollbar-thumb {
-    background: black;
+    background: transparent;
   }
   
   /* Handle on hover */
   ::-webkit-scrollbar-thumb:hover {
-    background: black;
+    background: transparent;
   }
