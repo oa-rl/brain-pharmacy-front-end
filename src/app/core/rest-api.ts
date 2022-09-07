@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import {isNil} from 'lodash';
-import { Main } from '../models/main';
+import { ListData, Main } from '../models/main';
 
 export class Api<T extends Main>  {
     private _url = 'https://localhost:7212/api';
@@ -19,8 +19,8 @@ export class Api<T extends Main>  {
         });
     }
 
-    find(where?: string, subR?: any): Observable<T> {
-        return this._http.get<T>(`${this._url}/${this._area}${isNil(subR) ? '' :
+    find(where?: string, subR?: any): Observable<ListData<Array<T>> > {
+        return this._http.get<ListData<Array<T>>>(`${this._url}/${this._area}${isNil(subR) ? '' :
             `/${subR}`}${isNil(where) ? '' : `?${where}`}`, { headers: this.headers });
     }
 

@@ -1,1 +1,33 @@
-<p>list works!</p>
+<div class="flex h-screen">
+    <div class="w-full flex flex-col justify-center items-center ">
+      <div class="max-w-md">
+        <div class="text-base breadcrumbs">
+          <ul>
+            <li><a>Inicio</a></li>
+            <li>Empresas</li>
+          </ul>
+        </div>
+        <div class="flex justify-end mb-1">
+          <button class="btn btn-outline btn-primary btn-xs">Nueva</button>
+        </div>
+        <div class="border-solid border border-black rounded-lg w-full h-96 overflow-scroll p-1">
+          <table class="min-w-fit">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>NIT</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let company of companies.data" brainRowSelected ngClass="border-b border-primary cursor-pointer">
+                <td class="text-center" >{{company.id}}</td>
+                <td class="border-l border-primary">{{company.name}}</td>
+                <td class="border-l border-primary">{{company.nit}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
