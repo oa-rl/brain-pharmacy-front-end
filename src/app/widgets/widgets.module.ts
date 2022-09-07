@@ -4,8 +4,9 @@ import { SaveButtonComponent } from './save-button/save-button.component';
 import { CancelButtonComponent } from './cancel-button/cancel-button.component';
 import { BreadCrumbsComponent } from './bread-crumbs/bread-crumbs.component';
 import { RouterModule } from '@angular/router';
+import { PaginationComponent } from './pagination/pagination.component';
 
-const components = [SaveButtonComponent, CancelButtonComponent, BreadCrumbsComponent];
+const components = [SaveButtonComponent, CancelButtonComponent, BreadCrumbsComponent, PaginationComponent];
 
 
 @NgModule({
