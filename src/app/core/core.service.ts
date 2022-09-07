@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Main } from '../models/main';
 import { Api } from './rest-api';
 
 @Injectable({
@@ -10,7 +11,7 @@ export class CoreService {
 
   constructor(private http: HttpClient) { }
 
-  resource<T>(area: string) {
+  resource<T extends Main>(area: string) {
     return new Api<T>(this.http, area);
   }
 

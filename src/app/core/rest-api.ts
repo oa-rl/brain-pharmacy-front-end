@@ -1,9 +1,10 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import {isNil} from 'lodash';
+import { Main } from '../models/main';
 
-export class Api<T extends { id?: number }>  {
-    private _url = 'https://jsonplaceholder.typicode.com';
+export class Api<T extends Main>  {
+    private _url = 'https://localhost:7212/api';
     private headers: HttpHeaders;
     constructor(
         public _http: HttpClient,
@@ -28,6 +29,7 @@ export class Api<T extends { id?: number }>  {
     }
 
     insert(obj: T, subR?: any): Observable<T> {
+        console.log(`${this._url}/${this._area}`);
         return this._http.post<T>(`${this._url}/${this._area}${!isNil(subR) ? `/${subR}` : ''}`,
             obj, { headers: this.headers });
     }

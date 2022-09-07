@@ -3,6 +3,8 @@ import { FormBuilder, Validators } from '@angular/forms';
 
 import { CoreService } from 'src/app/core/core.service';
 import { FormComponent } from 'src/app/core/form.component';
+import { Api } from 'src/app/core/rest-api';
+import { Company } from 'src/app/models/company';
 
 @Component({
   selector: 'brain-new-edit',
@@ -11,17 +13,21 @@ import { FormComponent } from 'src/app/core/form.component';
 })
 export class NewEditComponent extends FormComponent implements OnInit {
 
-  constructor(public core: CoreService, protected builder: FormBuilder) {
+  private _api: Api<Company>;
+
+  constructor(private _core: CoreService, protected builder: FormBuilder) {
     super();
+    this._api = this._core.resource('Company');
   }
 
   ngOnInit(): void {
     this.initForm();
   }
 
+
   private initForm() {
     this._form = this.builder.group({
-      id: null,
+      id: 0,
       address: [null, [Validators.required]],
       name: [null, [Validators.required]],
       nit: [null, [Validators.required]],
@@ -34,12 +40,16 @@ export class NewEditComponent extends FormComponent implements OnInit {
     }
   }
 
-  save(value: boolean) {
-    if (value) {
-      this.notifySuccess();
-      setTimeout(() => {
-        this.core.savingOff();
-      }, 3000);
+  async save(value: boolean) {
+    if (value && this.formIsValid()) {
+      try {
+        await this._api.insert(this._form.value).toPromise();  
+        this.notifySuccess();
+      } catch (error) {
+        
+      } finally {
+        this._core.savingOff();
+      }
     }
   }
 }
