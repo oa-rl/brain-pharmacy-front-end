@@ -8,3 +8,8 @@ export interface ListData<T> {
     pageIndex: number,
     pageSize: number
 }
+
+export interface BreadCrumbs {
+    name: string,
+    path?: string
+}

@@ -5,6 +5,7 @@ import { CoreService } from 'src/app/core/core.service';
 import { FormComponent } from 'src/app/core/form.component';
 import { Api } from 'src/app/core/rest-api';
 import { Company } from 'src/app/models/company';
+import { BreadCrumbs } from 'src/app/models/main';
 
 @Component({
   selector: 'brain-new-edit',
@@ -14,6 +15,15 @@ import { Company } from 'src/app/models/company';
 export class NewEditComponent extends FormComponent implements OnInit {
 
   private _api: Api<Company>;
+  public breadCrum: Array<BreadCrumbs> = [
+    {
+      name: 'Lista',
+      path: '/company/list'
+    },
+    {
+      name: 'Nueva empresa',
+    }
+  ]
 
   constructor(private _core: CoreService, protected builder: FormBuilder) {
     super();

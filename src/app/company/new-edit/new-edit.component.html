@@ -2,12 +2,7 @@
   <div class="flex h-screen">
     <div class="w-full flex flex-col justify-center items-center ">
       <div class="max-w-md">
-        <div class="text-base breadcrumbs">
-          <ul>
-            <li><a>Inicio</a></li>
-            <li>Nueva Empresa</li>
-          </ul>
-        </div>
+        <brain-bread-crumbs [breadCrum]="breadCrum"></brain-bread-crumbs>
         <input [brainInputError]="inputHasError('name')" formControlName="name" type="text" placeholder="Nombre"  />
         <textarea  formControlName="address" [brainInputError]="inputHasError('address')" ngClass="mt-5 mb-2 h-40 " placeholder="Dirección"></textarea>
         <input [brainInputError]="inputHasError('nit')" formControlName="nit" type="text" placeholder="NIT"  />

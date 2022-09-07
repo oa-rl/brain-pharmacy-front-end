@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CoreService } from 'src/app/core/core.service';
 import { Api } from 'src/app/core/rest-api';
 import { Company } from 'src/app/models/company';
-import { ListData } from 'src/app/models/main';
+import { BreadCrumbs, ListData } from 'src/app/models/main';
 
 @Component({
   selector: 'brain-list',
@@ -13,6 +13,11 @@ export class ListComponent implements OnInit {
 
   private _api: Api<Company>;
   public companies!: ListData<Array<Company>>;
+  public breadCrum: Array<BreadCrumbs> = [
+    {
+      name: 'Lista de empresas'
+    }
+  ]
 
   constructor(private _core: CoreService) { 
     this._api = this._core.resource('Company');
