@@ -2,7 +2,7 @@
     <input id="my-drawer" #router type="checkbox" class="drawer-toggle" />
     <div class="drawer-content">
       <div class="w-full h-full px-5">
-        <label for="my-drawer" class="btn btn-primary drawer-button fixed mt-5"> <i class="fa-solid fa-bars"></i></label>
+        <label for="my-drawer" class="btn btn-primary drawer-button fixed mt-5"> <em class="fa-solid fa-bars"></em></label>
         <router-outlet></router-outlet>
     </div>
     </div> 
@@ -13,7 +13,7 @@
         <li><a (click)="check()"  [routerLink]="['/company/list']">Empresas</a></li>
         <li><a (click)="check()"  [routerLink]="['/branch/list']">Sub-empresa</a></li>
         <li><div class="divider">Inventario</div></li>
-        <li><a (click)="check()"  [routerLink]="['/inventory/product/new']">Producto</a></li>
+        <li><a (click)="check()"  [routerLink]="['/inventory/product/list']">Producto</a></li>
         <li><a (click)="check()"  [routerLink]="['/inventory/size/new']">Unidad de medida</a></li>
         <li><a (click)="check()"  [routerLink]="['/inventory/medical-house/new']">Casa medica</a></li>
         <li><a (click)="check()"  [routerLink]="['/inventory/product-combination/new']">Combinacion de productos</a></li>
