@@ -17,6 +17,7 @@ export class NewEditComponent extends FormComponent implements OnInit {
 
   private _api: Api<Company>;
   private _id: number = 0;
+  public loading: boolean = false;
   public breadCrum: Array<BreadCrumbs> = [
     {
       name: 'Lista',
@@ -40,14 +41,18 @@ export class NewEditComponent extends FormComponent implements OnInit {
 
   async find() {
     if(this._id) {
+      this.loading = true;
+      this._form.disable();
       this._core.savingOn();
       try {
         const data: Company = await this._api.findById(this._id).toPromise();
         this._form.patchValue(data);
+        this._form.enable();
       } catch (error) {
         
       } finally {
         this._core.savingOff();
+        this.loading = false;
       }
     }
   }
@@ -81,3 +86,8 @@ export class NewEditComponent extends FormComponent implements OnInit {
     }
   }
 }
+
+
+// "ConnectionStrings": {
+//   "conexionDatabase": "Server=localhost;Database=StreetPharmacy;Port=5432;User Id=postgres;Password=root"
+// },

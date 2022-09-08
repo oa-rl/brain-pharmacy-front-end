@@ -14,6 +14,7 @@ export class ListComponent implements OnInit {
 
   private _api: Api<Company>;
   public companies!: ListData<Array<Company>>;
+  public loading:boolean = false;
   public breadCrum: Array<BreadCrumbs> = [
     {
       name: 'Lista de empresas'
@@ -29,7 +30,14 @@ export class ListComponent implements OnInit {
   }
 
   async getData() {
-    this.companies = await this._api.find().toPromise();
+    try {
+      this.loading = true;
+      this.companies = await this._api.find().toPromise();
+    } catch (error) {
+      
+    } finally {
+      this.loading = false;
+    }
   }
 
   find(id: number) {

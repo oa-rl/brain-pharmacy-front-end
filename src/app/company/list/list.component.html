@@ -1,6 +1,7 @@
 <div class="flex h-screen">
     <div class="w-full flex flex-col justify-center items-center ">
       <div class="w-96">
+        <brain-loading *ngIf="loading"></brain-loading>
          <brain-bread-crumbs [breadCrum]="breadCrum"></brain-bread-crumbs>
         <div class="flex justify-end mb-1">
           <a [routerLink]="['/company/new']" class="btn btn-outline btn-primary btn-xs">Nueva</a>
