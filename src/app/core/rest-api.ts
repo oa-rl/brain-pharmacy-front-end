@@ -36,7 +36,7 @@ export class Api<T extends Main>  {
 
     update(obj: T, subR?: any): Observable<T> {
         return this._http
-            .put<T>(`${this._url}/${this._area}${!isNil(subR) ? `/${subR}` : ''}/${obj.id}`, obj, { headers: this.headers });
+            .put<T>(`${this._url}/${this._area}${!isNil(subR) ? `/${subR}` : ''}`, obj, { headers: this.headers });
     }
 
     nativeUpdate(obj: T, subR?: any): Observable<T> {

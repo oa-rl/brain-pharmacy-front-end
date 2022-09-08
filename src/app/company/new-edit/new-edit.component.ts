@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { CoreService } from 'src/app/core/core.service';
 import { FormComponent } from 'src/app/core/form.component';
@@ -28,20 +28,21 @@ export class NewEditComponent extends FormComponent implements OnInit {
     }
   ]
 
-  constructor(private _core: CoreService, protected builder: FormBuilder, private route: ActivatedRoute) {
+  constructor(private _core: CoreService, protected builder: FormBuilder, private route: ActivatedRoute, private _route:Router) {
     super();
     this._api = this._core.resource('Company');
   }
 
   ngOnInit(): void {
-    this._id = Number(this.route.snapshot.paramMap.get('id')?.toString())!;
+    this._id = Number((this.route.snapshot.paramMap.get('id') || 0)?.toString())!;
     this.initForm();
-    this.find();
+    if(this._id !== 0) {
+      this.find();
+    }
   }
 
   async find() {
-    if(this._id) {
-      this.loading = true;
+    this.loading = true;
       this._form.disable();
       this._core.savingOn();
       try {
@@ -54,7 +55,6 @@ export class NewEditComponent extends FormComponent implements OnInit {
         this._core.savingOff();
         this.loading = false;
       }
-    }
   }
 
 
@@ -76,7 +76,9 @@ export class NewEditComponent extends FormComponent implements OnInit {
   async save(value: boolean) {
     if (value && this.formIsValid()) {
       try {
-        await this._api.insert(this._form.value).toPromise();  
+        const opt = (this._id === 0) ? 'insert' : 'update';
+        await this._api[opt](this._form.value).toPromise();
+        this.goBack();
         this.notifySuccess();
       } catch (error) {
         
@@ -85,7 +87,12 @@ export class NewEditComponent extends FormComponent implements OnInit {
       }
     }
   }
+
+  goBack() {
+    this._route.navigate(['/company/list']);
+  }
 }
+
 
 
 // "ConnectionStrings": {
