@@ -93,8 +93,3 @@ export class NewEditComponent extends FormComponent implements OnInit {
   }
 }
 
-
-
-// "ConnectionStrings": {
-//   "conexionDatabase": "Server=localhost;Database=StreetPharmacy;Port=5432;User Id=postgres;Password=root"
-// },

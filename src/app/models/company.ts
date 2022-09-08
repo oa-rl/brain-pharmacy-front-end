@@ -5,3 +5,9 @@ export interface Company extends Main {
     address: string,
     nit: string
 }
+
+export interface Branch extends Main {
+    companyId: number,
+    name: string,
+    address: string
+}
