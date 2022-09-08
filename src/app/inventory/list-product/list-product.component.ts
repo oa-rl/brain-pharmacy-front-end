@@ -13,16 +13,16 @@ import { BreadCrumbs, ListData } from 'src/app/models/main';
 export class ListProductComponent implements OnInit {
 
   private _api: Api<Product>;
-  public companies!: ListData<Array<Product>>;
+  public products!: ListData<Array<Product>>;
   public loading:boolean = false;
   public breadCrum: Array<BreadCrumbs> = [
     {
-      name: 'Lista de empresas'
+      name: 'Lista de productos'
     }
   ]
 
   constructor(private _core: CoreService, private _route:Router) { 
-    this._api = this._core.resource('Company');
+    this._api = this._core.resource('Product');
   }
 
   ngOnInit(): void {
@@ -32,7 +32,7 @@ export class ListProductComponent implements OnInit {
   async getData() {
     try {
       this.loading = true;
-      this.companies = await this._api.find().toPromise();
+      this.products = await this._api.find().toPromise();
     } catch (error) {
       
     } finally {
@@ -41,7 +41,7 @@ export class ListProductComponent implements OnInit {
   }
 
   find(id: number) {
-    this._route.navigate([`/company/edit/${id}`]);
+    this._route.navigate([`/inventory/product/edit/${id}`]);
   }
 
 }

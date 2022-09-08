@@ -4,22 +4,21 @@
         <brain-loading *ngIf="loading"></brain-loading>
          <brain-bread-crumbs [breadCrum]="breadCrum"></brain-bread-crumbs>
         <div class="flex justify-end mb-1">
-          <a [routerLink]="['/company/new']" class="btn btn-outline btn-primary btn-xs">Nueva</a>
+          <a [routerLink]="['/inventory/product/new']" class="btn btn-outline btn-primary btn-xs">Nuevo</a>
         </div>
         <div class="border-solid border border-black rounded-lg w-full h-96 overflow-scroll p-0 ">
           <table class="w-full">
             <thead>
               <tr>
-                <th>ID</th>
-                <th>Nombre</th>
-                <th>NIT</th>
+                <th class="text-center">ID</th>
+                <th class="text-center">Nombre</th>
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let company of companies?.data" brainRowSelected ngClass="border-b border-primary cursor-pointer"
-              (click)="find(company.id!)">
-                <td class="text-center" >{{company.id}}</td>
-                <td class="border-l border-primary">{{company.name}}</td>
+              <tr *ngFor="let product of products?.data" brainRowSelected ngClass="border-b border-primary cursor-pointer"
+              (click)="find(product.id!)">
+                <td class="text-center" >{{product.id}}</td>
+                <td class="border-l border-primary">{{product.name}}</td>
               </tr>
             </tbody>
           </table>
