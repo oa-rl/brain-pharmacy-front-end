@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { CoreService } from 'src/app/core/core.service';
 import { Api } from 'src/app/core/rest-api';
 import { Company } from 'src/app/models/company';
@@ -19,7 +20,7 @@ export class ListComponent implements OnInit {
     }
   ]
 
-  constructor(private _core: CoreService) { 
+  constructor(private _core: CoreService, private _route:Router) { 
     this._api = this._core.resource('Company');
   }
 
@@ -29,6 +30,10 @@ export class ListComponent implements OnInit {
 
   async getData() {
     this.companies = await this._api.find().toPromise();
+  }
+
+  find(id: number) {
+    this._route.navigate([`/company/edit/${id}`]);
   }
 
 }

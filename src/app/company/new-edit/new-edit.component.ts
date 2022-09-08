@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 
 import { CoreService } from 'src/app/core/core.service';
 import { FormComponent } from 'src/app/core/form.component';
@@ -15,6 +16,7 @@ import { BreadCrumbs } from 'src/app/models/main';
 export class NewEditComponent extends FormComponent implements OnInit {
 
   private _api: Api<Company>;
+  private _id: number = 0;
   public breadCrum: Array<BreadCrumbs> = [
     {
       name: 'Lista',
@@ -25,13 +27,29 @@ export class NewEditComponent extends FormComponent implements OnInit {
     }
   ]
 
-  constructor(private _core: CoreService, protected builder: FormBuilder) {
+  constructor(private _core: CoreService, protected builder: FormBuilder, private route: ActivatedRoute) {
     super();
     this._api = this._core.resource('Company');
   }
 
   ngOnInit(): void {
+    this._id = Number(this.route.snapshot.paramMap.get('id')?.toString())!;
     this.initForm();
+    this.find();
+  }
+
+  async find() {
+    if(this._id) {
+      this._core.savingOn();
+      try {
+        const data: Company = await this._api.findById(this._id).toPromise();
+        this._form.patchValue(data);
+      } catch (error) {
+        
+      } finally {
+        this._core.savingOff();
+      }
+    }
   }
 
 

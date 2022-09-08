@@ -15,7 +15,8 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let company of companies.data" brainRowSelected ngClass="border-b border-primary cursor-pointer">
+              <tr *ngFor="let company of companies.data" brainRowSelected ngClass="border-b border-primary cursor-pointer"
+              (click)="find(company.id!)">
                 <td class="text-center" >{{company.id}}</td>
                 <td class="border-l border-primary">{{company.name}}</td>
                 <td class="border-l border-primary">{{company.nit}}</td>
