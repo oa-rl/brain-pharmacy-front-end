@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ListProductCombinationComponent } from './list-product-combination/list-product-combination.component';
 import { ListProductComponent } from './list-product/list-product.component';
+import { ListSizeComponent } from './list-size/list-size.component';
 import { NewEditMedicalHouseComponent } from './new-edit-medical-house/new-edit-medical-house.component';
 import { NewEditProductCombinationComponent } from './new-edit-product-combination/new-edit-product-combination.component';
 import { NewEditProductComponent } from './new-edit-product/new-edit-product.component';
@@ -18,6 +19,9 @@ const routes: Routes = [{
 {
   path: 'inventory/product/edit/:id',
   component: NewEditProductComponent
+}, {
+  path: 'inventory/size/list',
+  component: ListSizeComponent
 }, {
   path: 'inventory/size/new',
   component: NewEditSizeComponent
