@@ -4,10 +4,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { CoreService } from 'src/app/core/core.service';
 import { FormComponent } from 'src/app/core/form.component';
 import { Api } from 'src/app/core/rest-api';
-import { Product } from 'src/app/models/inventory.models';
+import { Product, ProductCombination } from 'src/app/models/inventory.models';
 import { BreadCrumbs, ListData } from 'src/app/models/main';
 import { MedicalHouse, Size } from './../../models/inventory.models';
-import { parseInt, isNaN, find, isUndefined } from 'lodash';
 
 @Component({
   selector: 'brain-new-edit-product-combination',
@@ -16,6 +15,7 @@ import { parseInt, isNaN, find, isUndefined } from 'lodash';
 })
 export class NewEditProductCombinationComponent extends FormComponent implements OnInit {
 
+  private _api: Api<ProductCombination>;
   private _apiProduct: Api<Product>;
   private _apiSize: Api<Size>;
   private _apiMedicalHouse: Api<MedicalHouse>;
@@ -32,11 +32,12 @@ export class NewEditProductCombinationComponent extends FormComponent implements
       path: '/inventory/product-combination/list'
     },
     {
-      name: 'Nuevo producto',
+      name: 'Nueva combinacion de producto',
     }
   ]
   constructor(private _core: CoreService, protected builder: FormBuilder, private route: ActivatedRoute, private _route: Router) {
     super();
+    this._api = this._core.resource('ProductCombination');
     this._apiProduct = this._core.resource('Product');
     this._apiSize = this._core.resource('Size');
     this._apiMedicalHouse = this._core.resource('MedicalHouse');
@@ -64,8 +65,8 @@ export class NewEditProductCombinationComponent extends FormComponent implements
 
   private initForm() {
     this._form = this.builder.group({
-      id: null,
-      branchId: [null, [Validators.required]],
+      id: 0,
+      companyId: [1, [Validators.required]],
       product: [null, [Validators.required]],
       productId: [null, [Validators.required]],
       size: [null, [Validators.required]],
@@ -86,7 +87,7 @@ export class NewEditProductCombinationComponent extends FormComponent implements
     if (value && this.formIsValid()) {
       try {
         const opt = (this._id === 0) ? 'insert' : 'update';
-        // await this._api[opt](this._form.value).toPromise();
+         await this._api[opt](this._form.value).toPromise();
         this.goBack();
         this.notifySuccess();
       } catch (error) {
@@ -98,7 +99,7 @@ export class NewEditProductCombinationComponent extends FormComponent implements
   }
 
   goBack() {
-    this._route.navigate(['/inventory/product/list']);
+    this._route.navigate(['/inventory/product-combination/list']);
   }
 
 
