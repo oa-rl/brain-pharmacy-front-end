@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { ListMedicalHouseComponent } from './list-medical-house/list-medical-house.component';
 import { ListProductCombinationComponent } from './list-product-combination/list-product-combination.component';
 import { ListProductComponent } from './list-product/list-product.component';
 import { ListSizeComponent } from './list-size/list-size.component';
@@ -30,6 +31,9 @@ const routes: Routes = [{
   path: 'inventory/size/edit/:id',
   component: NewEditSizeComponent
 }, {
+  path: 'inventory/medical-house/list',
+  component: ListMedicalHouseComponent
+},{
   path: 'inventory/medical-house/new',
   component: NewEditMedicalHouseComponent
 },

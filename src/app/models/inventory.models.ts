@@ -7,3 +7,7 @@ export interface Product extends Main {
 export interface Size extends Main {
     name: string
 }
+
+export interface MedicalHouse extends Main {
+    name: string
+}
