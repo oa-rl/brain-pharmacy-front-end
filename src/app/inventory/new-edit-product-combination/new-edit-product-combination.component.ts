@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Notify } from 'notiflix';
 import { CoreService } from 'src/app/core/core.service';
 import { FormComponent } from 'src/app/core/form.component';
 import { Api } from 'src/app/core/rest-api';
 import { Product } from 'src/app/models/inventory.models';
 import { BreadCrumbs, ListData } from 'src/app/models/main';
 import { MedicalHouse, Size } from './../../models/inventory.models';
+import { parseInt, isNaN, find, isUndefined } from 'lodash';
 
 @Component({
   selector: 'brain-new-edit-product-combination',
@@ -66,21 +66,21 @@ export class NewEditProductCombinationComponent extends FormComponent implements
     this._form = this.builder.group({
       id: null,
       branchId: [null, [Validators.required]],
+      product: [null, [Validators.required]],
       productId: [null, [Validators.required]],
+      size: [null, [Validators.required]],
       sizeId: [null, [Validators.required]],
       amount: [null, [Validators.required]],
+      medicalHouse: [null, [Validators.required]],
       medicalHouseId: [null, [Validators.required]],
+      saleFor: [null, [Validators.required]],
       saleForId: [null, [Validators.required]],
       saleAmount: [null, [Validators.required]],
       price: [null, [Validators.required]],
     });
   }
 
-  cancel(opt: boolean) {
-    if(opt) {
-      this._form.reset();
-    }
-  }
+
 
   async save(value: boolean) {
     if (value && this.formIsValid()) {
@@ -90,7 +90,7 @@ export class NewEditProductCombinationComponent extends FormComponent implements
         this.goBack();
         this.notifySuccess();
       } catch (error) {
-        
+
       } finally {
         this._core.savingOff();
       }
