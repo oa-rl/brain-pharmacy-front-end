@@ -1,9 +1,13 @@
-import { AutoCompleteList } from './../../interfaces/core.interface';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Notify } from 'notiflix';
 import { CoreService } from 'src/app/core/core.service';
 import { FormComponent } from 'src/app/core/form.component';
+import { Api } from 'src/app/core/rest-api';
+import { Product } from 'src/app/models/inventory.models';
+import { BreadCrumbs, ListData } from 'src/app/models/main';
+import { MedicalHouse, Size } from './../../models/inventory.models';
 
 @Component({
   selector: 'brain-new-edit-product-combination',
@@ -12,58 +16,50 @@ import { FormComponent } from 'src/app/core/form.component';
 })
 export class NewEditProductCombinationComponent extends FormComponent implements OnInit {
 
-  public productList: Array<AutoCompleteList> = [
-    {
-      value: 'Aspirina',
-      key: 1
-    }, {
-      value: 'Tapsin',
-      key: 2
-    }, {
-      value: 'Ibuprofeno',
-      key: 3
-    },
-    {
-      value: 'Bismuto',
-      key: 4
-    },
-    {
-      value: 'Pancratina',
-      key: 5
-    },
-  ];
+  private _apiProduct: Api<Product>;
+  private _apiSize: Api<Size>;
+  private _apiMedicalHouse: Api<MedicalHouse>;
 
-  public measureList: Array<AutoCompleteList> = [
+  public listOfProducts!: ListData<Array<Product>>
+  public listOfSize!: ListData<Array<Size>>
+  public listOfMedicalHouse!: ListData<Array<MedicalHouse>>
+  // private _apiProdcut: Api<Product>;
+  private _id: number = 0;
+  public loading: boolean = false;
+  public breadCrum: Array<BreadCrumbs> = [
     {
-      value: 'mg',
-      key: 1
-    }, {
-      value: 'ml',
-      key: 2
-    }, {
-      value: 'g',
-      key: 3
-    }
-  ];
-
-  public medicalHouseList: Array<AutoCompleteList> = [
+      name: 'Lista',
+      path: '/inventory/product-combination/list'
+    },
     {
-      value: 'Bayer',
-      key: 1
-    }, {
-      value: 'Home',
-      key: 2
-    }, {
-      value: 'Palet',
-      key: 3
+      name: 'Nuevo producto',
     }
-  ];
-  constructor(public core: CoreService, protected builder: FormBuilder) {
+  ]
+  constructor(private _core: CoreService, protected builder: FormBuilder, private route: ActivatedRoute, private _route: Router) {
     super();
+    this._apiProduct = this._core.resource('Product');
+    this._apiSize = this._core.resource('Size');
+    this._apiMedicalHouse = this._core.resource('MedicalHouse');
+    // this._api = this._core.resource('Product');
+  }
+
+  async loadProduct() {
+    this.listOfProducts = await this._apiProduct.find().toPromise();
+  }
+
+  async loadSize() {
+    this.listOfSize = await this._apiSize.find().toPromise();
+  }
+
+  async loadMedicalHouse() {
+    this.listOfMedicalHouse = await this._apiMedicalHouse.find().toPromise();
   }
 
   ngOnInit(): void {
     this.initForm();
+    this.loadProduct();
+    this.loadSize();
+    this.loadMedicalHouse()
   }
 
   private initForm() {
@@ -86,13 +82,26 @@ export class NewEditProductCombinationComponent extends FormComponent implements
     }
   }
 
-  save(value: boolean) {
-    if (value) {
-      Notify.success('Guardado', {}, { backOverlayColor: '#4cda64' });
-      setTimeout(() => {
-        this.core.savingOff();
-      }, 3000);
+  async save(value: boolean) {
+    if (value && this.formIsValid()) {
+      try {
+        const opt = (this._id === 0) ? 'insert' : 'update';
+        // await this._api[opt](this._form.value).toPromise();
+        this.goBack();
+        this.notifySuccess();
+      } catch (error) {
+        
+      } finally {
+        this._core.savingOff();
+      }
     }
   }
+
+  goBack() {
+    this._route.navigate(['/inventory/product/list']);
+  }
+
+
+
 
 }

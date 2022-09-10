@@ -1,33 +1,29 @@
 <form [formGroup]="form">
     <div class="flex justify-center items-center h-screen">
         <div class="flex flex-col w-full max-w-md">
-            <div class="text-base breadcrumbs ">
-                <ul>
-                    <li><a>Inicio</a></li>
-                    <li>Nueva Combinacion de producto</li>
-                </ul>
-            </div>
+            <!-- <brain-loading *ngIf="loading"></brain-loading>
+            <brain-bread-crumbs [breadCrum]="breadCrum"></brain-bread-crumbs> -->
             <input type="string" list="productList" placeholder="Producto" formControlName="productId"
                 class="input input-bordered input-primary w-full" />
             <datalist id="productList">
-                <option *ngFor="let product of productList" [value]="product.value">Cod# {{product.key}}</option>
+                <option *ngFor="let product of listOfProducts?.data" [value]="product.name">Cod# {{product.id}}</option>
             </datalist>
             <input type="string" list="measureId" placeholder="Unidad de medida" formControlName="sizeId"
                 class="input input-bordered input-primary w-full my-5" />
             <datalist id="measureId">
-                <option *ngFor="let measure of measureList" [value]="measure.value">Cod# {{measure.key}}</option>
+                <option *ngFor="let measure of listOfSize?.data" [value]="measure.name">Cod# {{measure.id}}</option>
             </datalist>
             <input type="number" placeholder="Cantidad de la unidad de medida"
                 class="input input-bordered input-primary w-full" />
             <input type="string" list="medicalHouseList" placeholder="Casa medica" formControlName="medicalHouseId"
                 class="input input-bordered input-primary w-full my-5" />
             <datalist id="medicalHouseList">
-                <option *ngFor="let house of medicalHouseList" [value]="house.value">Cod# {{house.key}}</option>
+                <option *ngFor="let house of listOfMedicalHouse?.data" [value]="house.name">Cod# {{house.id}}</option>
             </datalist>
             <input type="string" list="salesForKey" placeholder="Venta por" formControlName="saleForId"
                 class="input input-bordered input-primary w-full" />
             <datalist id="salesForKey">
-                <option *ngFor="let house of medicalHouseList" [value]="house.value">Cod# {{house.key}}</option>
+                <option *ngFor="let house of listOfMedicalHouse?.data" [value]="house.name">Cod# {{house.id}}</option>
             </datalist>
             <input type="number" placeholder="Cantidad" formArrayName="saleAmount" class="input input-bordered input-primary w-full my-5" />
             <input type="number" placeholder="Precio" formArrayName="price" class="input input-bordered input-primary w-full" />

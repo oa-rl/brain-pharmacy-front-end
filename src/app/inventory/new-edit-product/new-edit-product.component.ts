@@ -1,12 +1,11 @@
-import { FormBuilder, Validators } from '@angular/forms';
-import { FormComponent } from 'src/app/core/form.component';
 import { Component, OnInit } from '@angular/core';
-import { Notify } from 'notiflix';
+import { FormBuilder, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CoreService } from 'src/app/core/core.service';
+import { FormComponent } from 'src/app/core/form.component';
 import { Api } from 'src/app/core/rest-api';
 import { Product } from 'src/app/models/inventory.models';
 import { BreadCrumbs } from 'src/app/models/main';
-import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'brain-new-edit-product',

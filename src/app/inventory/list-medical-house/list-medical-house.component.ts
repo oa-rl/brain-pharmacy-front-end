@@ -41,7 +41,7 @@ export class ListMedicalHouseComponent implements OnInit {
   }
 
   find(id: number) {
-    this._route.navigate([`/medical-house/size/edit/${id}`]);
+    this._route.navigate([`/inventory/medical-house/edit/${id}`]);
   }
 
 }
