@@ -3,30 +3,30 @@
         <div class="flex flex-col w-full max-w-md">
             <brain-loading *ngIf="loading"></brain-loading>
             <brain-bread-crumbs [breadCrum]="breadCrum"></brain-bread-crumbs>
-            <input type="string" (focusout)="setValue('product','productId', listOfProducts!.data)" list="productList" value placeholder="Producto" formControlName="product"
-            [brainInputError]="inputHasError('product')"/>
+            <input type="string" (focusout)="setValue('productTemp','productId', listOfProducts!.data)" list="productList" value placeholder="Producto" formControlName="productTemp"
+            [brainInputError]="inputHasError('productTemp')"/>
             <datalist id="productList">
                 <option *ngFor="let product of listOfProducts?.data" [value]="product.name">Cod# {{product.id}}</option>
             </datalist>
-            <input type="string" (focusout)="setValue('size','sizeId', listOfSize!.data)" list="measureId" placeholder="Unidad de medida" formControlName="size"
-            [brainInputError]="inputHasError('size')"
+            <input type="string" (focusout)="setValue('sizeTemp','sizeId', listOfSize!.data)" list="measureId" placeholder="Unidad de medida" formControlName="sizeTemp"
+            [brainInputError]="inputHasError('sizeTemp')"
                 ngClass=" my-5" />
             <datalist id="measureId">
                 <option *ngFor="let measure of listOfSize?.data" [value]="measure.name">Cod# {{measure.id}}</option>
             </datalist>
             <input type="number" placeholder="Cantidad de la unidad de medida"
-            [brainInputError]="inputHasError('amount')" formControlName="amount" />
-            <input type="string" (focusout)="setValue('medicalHouse','medicalHouseId', listOfMedicalHouse!.data)" list="medicalHouseList" placeholder="Casa medica" formControlName="medicalHouse"
-            [brainInputError]="inputHasError('medicalHouse')" ngClass=" my-5" />
+            [brainInputError]="inputHasError('amountSize')" formControlName="amountSize" />
+            <input type="string" (focusout)="setValue('medicalHouseTemp','medicalHouseId', listOfMedicalHouse!.data)" list="medicalHouseList" placeholder="Casa medica" formControlName="medicalHouseTemp"
+            [brainInputError]="inputHasError('medicalHouseTemp')" ngClass=" my-5" />
             <datalist id="medicalHouseList">
                 <option *ngFor="let house of listOfMedicalHouse?.data" [value]="house.name">Cod# {{house.id}}</option>
             </datalist>
-            <input type="string" (focusout)="setValue('saleFor','saleForId', listOfMedicalHouse!.data)"list="salesForKey" placeholder="Venta por" formControlName="saleFor"
-            [brainInputError]="inputHasError('saleFor')" />
+            <input type="string" (focusout)="setValue('saleForTemp','saleForId', listOfMedicalHouse!.data)"list="salesForKey" placeholder="Venta por" formControlName="saleForTemp"
+            [brainInputError]="inputHasError('saleForTemp')" />
             <datalist id="salesForKey">
                 <option *ngFor="let house of listOfMedicalHouse?.data" [value]="house.name">Cod# {{house.id}}</option>
             </datalist>
-            <input type="number" placeholder="Cantidad" formControlName="saleAmount" [brainInputError]="inputHasError('saleAmount')" ngClass=" my-5" />
+            <input type="number" placeholder="Cantidad" formControlName="amountSale" [brainInputError]="inputHasError('amountSale')" ngClass=" my-5" />
             <input type="number" placeholder="Precio" formControlName="price" [brainInputError]="inputHasError('price')"/>
             <div class="w-full flex justify-between my-5">
                 <brain-save-button (do)="save($event)"></brain-save-button>

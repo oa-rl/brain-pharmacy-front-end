@@ -87,16 +87,16 @@ export class NewEditProductCombinationComponent extends FormComponent implements
     this._form = this.builder.group({
       id: 0,
       companyId: [1, [Validators.required]],
-      product: [null, [Validators.required]],
+      productTemp: [null, [Validators.required]],
       productId: [null, [Validators.required]],
-      size: [null, [Validators.required]],
+      sizeTemp: [null, [Validators.required]],
       sizeId: [null, [Validators.required]],
-      amount: [null, [Validators.required]],
-      medicalHouse: [null, [Validators.required]],
+      amountSize: [null, [Validators.required]],
+      medicalHouseTemp: [null, [Validators.required]],
       medicalHouseId: [null, [Validators.required]],
-      saleFor: [null, [Validators.required]],
+      saleForTemp: [null, [Validators.required]],
       saleForId: [null, [Validators.required]],
-      saleAmount: [null, [Validators.required]],
+      amountSale: [null, [Validators.required]],
       price: [null, [Validators.required]],
     });
   }
