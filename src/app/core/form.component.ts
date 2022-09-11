@@ -26,20 +26,20 @@ export abstract class FormComponent {
         Notify.success('Guardado', {}, { backOverlayColor: '#4cda64' });
     }
 
-    setValue(file: string, list:Array<any>, name:string = 'name', id: string = 'id') {
+    setValue(file: string, fileId: string, list:Array<any>, name:string = 'name', id: string = 'id') {
         const data: string = this._form.value[file];
         const isString: boolean = isNaN(parseInt(data));
         const key: string = isString ? name : id;
         const parseData: string | number = isString ? data : parseInt(data);
         const found: any = find(list, { [key]: parseData });
         if (!isUndefined(found)) {
-          this._form.patchValue({ productId: found.id });
+          this._form.patchValue({ [fileId]: found.id });
           if (!isString) {
-            this._form.patchValue({ product: found.name });
+            this._form.patchValue({ [file]: found.name });
           }
         } else {
-          this._form.patchValue({ product: null });
-          this._form.patchValue({ productId: null });
+          this._form.patchValue({ [file]: null });
+          this._form.patchValue({ [fileId]: null });
         }
       }
     

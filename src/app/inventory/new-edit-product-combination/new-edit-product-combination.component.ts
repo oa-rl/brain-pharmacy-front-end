@@ -56,11 +56,31 @@ export class NewEditProductCombinationComponent extends FormComponent implements
     this.listOfMedicalHouse = await this._apiMedicalHouse.find().toPromise();
   }
 
+
+  async find() {
+    this.loading = true;
+      this._form.disable();
+      this._core.savingOn();
+      try {
+        const data: ProductCombination = await this._api.findById(this._id).toPromise();
+        this._form.patchValue(data);
+        this._form.enable();
+      } catch (error) {
+        
+      } finally {
+        this._core.savingOff();
+        this.loading = false;
+      }
+  }
+
   ngOnInit(): void {
     this.initForm();
     this.loadProduct();
     this.loadSize();
     this.loadMedicalHouse()
+    if(this._id !== 0) {
+      this.find();
+    }
   }
 
   private initForm() {
@@ -82,7 +102,6 @@ export class NewEditProductCombinationComponent extends FormComponent implements
   }
 
 
-
   async save(value: boolean) {
     if (value && this.formIsValid()) {
       try {
@@ -101,8 +120,4 @@ export class NewEditProductCombinationComponent extends FormComponent implements
   goBack() {
     this._route.navigate(['/inventory/product-combination/list']);
   }
-
-
-
-
 }
