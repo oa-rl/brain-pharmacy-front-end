@@ -43,6 +43,13 @@ export abstract class FormComponent {
         }
         console.log(this._form.value)
       }
+
+      
+  findObj(list:Array<any>, formId: string, set:string , id:string = "id" ) {
+    const name: string = find(list, {[id] : this._form.value[formId]})?.name || '';
+    this._form.patchValue({[set]: name});
+  }
+
     
       cancel(opt: boolean) {
         if (opt) {

@@ -48,39 +48,27 @@ export class NewEditProductCombinationComponent extends FormComponent implements
 
   ngOnInit(): void {
     this.initForm();
-    this.loadProduct();
-    this.loadSize();
-    this.loadMedicalHouse();
-    this.loadSaleFor();
+    this.masterLoad();
     this._id = Number((this.route.snapshot.paramMap.get('id') || 0)?.toString())!;
     if (this._id !== 0) {
       this.find();
-      setTimeout(() => {
-        this.findProduct();
-      }, 1000);
     }
   }
 
-  findProduct() {
-    const name: string = find(this.listOfProducts!.data, {'id' : this._form.value.productId})?.name || '';
-    this._form.patchValue({productTemp: name});
+  async masterLoad() {
+    const promise = await Promise.all([this._apiProduct.find().toPromise(),this._apiSize.find().toPromise(), this._apiMedicalHouse.find().toPromise(), this._apiSaleFor.find().toPromise()]);
+    this.listOfProducts = promise[0];
+    this.listOfSize = promise[1];
+    this.listOfMedicalHouse = promise[2];
+    this.listOfSaleFor = promise[3];
+    if(this._id !== 0) {
+      this.findObj(this.listOfProducts.data,'productId','productTemp');
+      this.findObj(this.listOfSize.data,'sizeId','sizeTemp');
+      this.findObj(this.listOfMedicalHouse.data,'medicalHouseId','medicalHouseTemp');
+      this.findObj(this.listOfSaleFor.data,'saleForId','saleForTemp');
+    }
   }
 
-  async loadProduct() {
-    this.listOfProducts = await this._apiProduct.find().toPromise();
-  }
-
-  async loadSize() {
-    this.listOfSize = await this._apiSize.find().toPromise();
-  }
-
-  async loadMedicalHouse() {
-    this.listOfMedicalHouse = await this._apiMedicalHouse.find().toPromise();
-  }
-
-  async loadSaleFor() {
-    this.listOfSaleFor = await this._apiSaleFor.find().toPromise();
-  }
 
   async find() {
     this.loading = true;
