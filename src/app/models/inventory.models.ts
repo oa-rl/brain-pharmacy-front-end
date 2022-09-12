@@ -13,10 +13,14 @@ export interface MedicalHouse extends Main {
 }
 
 export interface ProductCombination extends Main {
+    product?: Product,
     productId: number,
+    size?: Size,
     sizeId: number,
     amountSize: number,
+    medicalHouse?: MedicalHouse,
     medicalHouseId: number,
+    saleFor?: SaleFor,
     saleForId: number,
     amountSale: number,
     price: number
