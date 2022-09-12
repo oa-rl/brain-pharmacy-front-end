@@ -21,3 +21,7 @@ export interface ProductCombination extends Main {
     amountSale: number,
     price: number
 }
+
+export interface SaleFor extends Main {
+    name: string
+}

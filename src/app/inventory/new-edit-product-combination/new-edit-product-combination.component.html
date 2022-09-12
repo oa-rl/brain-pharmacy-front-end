@@ -21,10 +21,10 @@
             <datalist id="medicalHouseList">
                 <option *ngFor="let house of listOfMedicalHouse?.data" [value]="house.name">Cod# {{house.id}}</option>
             </datalist>
-            <input type="string" (focusout)="setValue('saleForTemp','saleForId', listOfMedicalHouse!.data)"list="salesForKey" placeholder="Venta por" formControlName="saleForTemp"
+            <input type="string" (focusout)="setValue('saleForTemp','saleForId', listOfSaleFor!.data)"list="salesForKey" placeholder="Venta por" formControlName="saleForTemp"
             [brainInputError]="inputHasError('saleForTemp')" />
             <datalist id="salesForKey">
-                <option *ngFor="let house of listOfMedicalHouse?.data" [value]="house.name">Cod# {{house.id}}</option>
+                <option *ngFor="let saleFor of listOfSaleFor?.data" [value]="saleFor.name">Cod# {{saleFor.id}}</option>
             </datalist>
             <input type="number" placeholder="Cantidad" formControlName="amountSale" [brainInputError]="inputHasError('amountSale')" ngClass=" my-5" />
             <input type="number" placeholder="Precio" formControlName="price" [brainInputError]="inputHasError('price')"/>

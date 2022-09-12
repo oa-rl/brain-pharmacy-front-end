@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { CoreService } from 'src/app/core/core.service';
 import { FormComponent } from 'src/app/core/form.component';
 import { Api } from 'src/app/core/rest-api';
-import { Product, ProductCombination } from 'src/app/models/inventory.models';
+import { Product, ProductCombination, SaleFor } from 'src/app/models/inventory.models';
 import { BreadCrumbs, ListData } from 'src/app/models/main';
 import { MedicalHouse, Size } from './../../models/inventory.models';
 
@@ -19,11 +19,12 @@ export class NewEditProductCombinationComponent extends FormComponent implements
   private _apiProduct: Api<Product>;
   private _apiSize: Api<Size>;
   private _apiMedicalHouse: Api<MedicalHouse>;
+  private _apiSaleFor: Api<SaleFor>;
 
   public listOfProducts!: ListData<Array<Product>>
   public listOfSize!: ListData<Array<Size>>
   public listOfMedicalHouse!: ListData<Array<MedicalHouse>>
-  // private _apiProdcut: Api<Product>;
+  public listOfSaleFor!: ListData<Array<SaleFor>>
   private _id: number = 0;
   public loading: boolean = false;
   public breadCrum: Array<BreadCrumbs> = [
@@ -41,7 +42,18 @@ export class NewEditProductCombinationComponent extends FormComponent implements
     this._apiProduct = this._core.resource('Product');
     this._apiSize = this._core.resource('Size');
     this._apiMedicalHouse = this._core.resource('MedicalHouse');
-    // this._api = this._core.resource('Product');
+    this._apiSaleFor = this._core.resource('SaleFor');
+  }
+
+  ngOnInit(): void {
+    this.initForm();
+    this.loadProduct();
+    this.loadSize();
+    this.loadMedicalHouse();
+    this.loadSaleFor();
+    if (this._id !== 0) {
+      this.find();
+    }
   }
 
   async loadProduct() {
@@ -56,30 +68,23 @@ export class NewEditProductCombinationComponent extends FormComponent implements
     this.listOfMedicalHouse = await this._apiMedicalHouse.find().toPromise();
   }
 
+  async loadSaleFor() {
+    this.listOfSaleFor = await this._apiSaleFor.find().toPromise();
+  }
 
   async find() {
     this.loading = true;
-      this._form.disable();
-      this._core.savingOn();
-      try {
-        const data: ProductCombination = await this._api.findById(this._id).toPromise();
-        this._form.patchValue(data);
-        this._form.enable();
-      } catch (error) {
-        
-      } finally {
-        this._core.savingOff();
-        this.loading = false;
-      }
-  }
+    this._form.disable();
+    this._core.savingOn();
+    try {
+      const data: ProductCombination = await this._api.findById(this._id).toPromise();
+      this._form.patchValue(data);
+      this._form.enable();
+    } catch (error) {
 
-  ngOnInit(): void {
-    this.initForm();
-    this.loadProduct();
-    this.loadSize();
-    this.loadMedicalHouse()
-    if(this._id !== 0) {
-      this.find();
+    } finally {
+      this._core.savingOff();
+      this.loading = false;
     }
   }
 
@@ -106,7 +111,7 @@ export class NewEditProductCombinationComponent extends FormComponent implements
     if (value && this.formIsValid()) {
       try {
         const opt = (this._id === 0) ? 'insert' : 'update';
-         await this._api[opt](this._form.value).toPromise();
+        await this._api[opt](this._form.value).toPromise();
         this.goBack();
         this.notifySuccess();
       } catch (error) {
