@@ -41,6 +41,7 @@ export abstract class FormComponent {
           this._form.patchValue({ [file]: null });
           this._form.patchValue({ [fileId]: null });
         }
+        console.log(this._form.value)
       }
     
       cancel(opt: boolean) {

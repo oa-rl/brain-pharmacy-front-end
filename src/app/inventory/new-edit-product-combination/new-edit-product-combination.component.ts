@@ -7,6 +7,7 @@ import { Api } from 'src/app/core/rest-api';
 import { Product, ProductCombination, SaleFor } from 'src/app/models/inventory.models';
 import { BreadCrumbs, ListData } from 'src/app/models/main';
 import { MedicalHouse, Size } from './../../models/inventory.models';
+import { find } from 'lodash';
 
 @Component({
   selector: 'brain-new-edit-product-combination',
@@ -51,9 +52,18 @@ export class NewEditProductCombinationComponent extends FormComponent implements
     this.loadSize();
     this.loadMedicalHouse();
     this.loadSaleFor();
+    this._id = Number((this.route.snapshot.paramMap.get('id') || 0)?.toString())!;
     if (this._id !== 0) {
       this.find();
+      setTimeout(() => {
+        this.findProduct();
+      }, 1000);
     }
+  }
+
+  findProduct() {
+    const name: string = find(this.listOfProducts!.data, {'id' : this._form.value.productId})?.name || '';
+    this._form.patchValue({productTemp: name});
   }
 
   async loadProduct() {
