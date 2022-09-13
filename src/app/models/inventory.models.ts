@@ -29,3 +29,13 @@ export interface ProductCombination extends Main {
 export interface SaleFor extends Main {
     name: string
 }
+
+export interface Customer extends Main {
+    name: string,
+    lastName: string,
+    nit: string,
+    email: string,
+    address: string,
+    phone1: string,
+    phone2: string
+}
