@@ -13,3 +13,7 @@ export interface BreadCrumbs {
     name: string,
     path?: string
 }
+
+export interface Profile extends Main {
+    name: string
+}

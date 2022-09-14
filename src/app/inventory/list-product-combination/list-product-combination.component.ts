@@ -1,10 +1,9 @@
-import { ProductCombination } from 'src/app/models/inventory.models';
-import { SaleFor } from './../../models/inventory.models';
 import { Component, OnInit } from '@angular/core';
-import { Api } from 'src/app/core/rest-api';
-import { BreadCrumbs, ListData } from 'src/app/models/main';
-import { CoreService } from 'src/app/core/core.service';
 import { Router } from '@angular/router';
+import { CoreService } from 'src/app/core/core.service';
+import { Api } from 'src/app/core/rest-api';
+import { ProductCombination } from 'src/app/models/inventory.models';
+import { BreadCrumbs, ListData } from 'src/app/models/main';
 
 @Component({
   selector: 'brain-list-product-combination',

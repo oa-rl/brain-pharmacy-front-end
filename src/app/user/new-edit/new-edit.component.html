@@ -15,11 +15,9 @@
         <input [brainInputError]="inputHasError('password')" formControlName="password" type="password" placeholder="Contraseña" ngClass=" mb-2 md:mb-0 md:mr-1" />
         <input [brainInputError]="inputHasError('confirmPassword')" formControlName="confirmPassword" type="password" placeholder="Confirmar contraseña" ngClass="md:ml-1" />
       </div> 
-      <input list="profileKey" type="text" [brainInputError]="inputHasError('profile')" formControlName="profile" placeholder="Perfil">
+      <input (focusout)="setValue('profileTemp','profileId', listOfProfile!.data)" list="profileKey" type="text" [brainInputError]="inputHasError('profileTemp')" formControlName="profileTemp" placeholder="Perfil">
         <datalist id="profileKey">
-          <option>Auto</option>
-          <option>Dark mode</option>
-          <option>Light mode</option>
+          <option *ngFor="let profile of listOfProfile?.data" [value]="profile.name"></option>
         </datalist>
         
       <div class="w-full flex flex-col md:flex-row justify-between my-5 ">
