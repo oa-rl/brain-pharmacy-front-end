@@ -24,6 +24,7 @@ import { DirectivesModule } from './directives/directives.module';
       delimiter: '-'
     }),
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
+    
     AppRoutingModule,
     CompanyModule,
     BranchModule,

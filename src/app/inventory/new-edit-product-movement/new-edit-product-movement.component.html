@@ -9,11 +9,11 @@
               <option *ngFor="let product of listOfProductsCombination?.data" value="{{product.product?.name}} {{product.amountSize}} {{product.size?.name}} {{product.medicalHouse?.name}} ({{product.saleFor?.name}})">Cod# {{product.id}}</option>
           </datalist>
           <input type="text" placeholder="Fecha de expiración"
-            [brainInputError]="inputHasError('expirationDate')" formControlName="expirationDate" />
+            [brainInputError]="inputHasError('expirationDate')" ngClass="my-5" formControlName="expirationDate" />
             <input type="number" placeholder="Cantidad"
             [brainInputError]="inputHasError('expirationDate')" formControlName="expirationDate" />
             <input type="string" (focusout)="setValue('operationTypeTemp','operationTypeId', listOfOperationType!.data, 'description')" list="operationTypeKey" value placeholder="Tipo de movimiento" formControlName="operationTypeTemp"
-            [brainInputError]="inputHasError('operationTypeTemp')"/>
+            [brainInputError]="inputHasError('operationTypeTemp')" ngClass="mt-5"/>
             <datalist id="operationTypeKey">
                 <option *ngFor="let operationType of listOfOperationType?.data" [value]="operationType.description">Cod# {{operationType.id}}</option>
             </datalist>
