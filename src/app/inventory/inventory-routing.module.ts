@@ -2,10 +2,12 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ListMedicalHouseComponent } from './list-medical-house/list-medical-house.component';
 import { ListProductCombinationComponent } from './list-product-combination/list-product-combination.component';
+import { ListProductMovementComponent } from './list-product-movement/list-product-movement.component';
 import { ListProductComponent } from './list-product/list-product.component';
 import { ListSizeComponent } from './list-size/list-size.component';
 import { NewEditMedicalHouseComponent } from './new-edit-medical-house/new-edit-medical-house.component';
 import { NewEditProductCombinationComponent } from './new-edit-product-combination/new-edit-product-combination.component';
+import { NewEditProductMovementComponent } from './new-edit-product-movement/new-edit-product-movement.component';
 import { NewEditProductComponent } from './new-edit-product/new-edit-product.component';
 import { NewEditSizeComponent } from './new-edit-size/new-edit-size.component';
 
@@ -50,6 +52,16 @@ const routes: Routes = [{
 {
   path: 'inventory/product-combination/edit/:id',
   component: NewEditProductCombinationComponent
+}, {
+  path: 'inventory/product-movement/list',
+  component: ListProductMovementComponent
+}, {
+  path: 'inventory/product-movement/new',
+  component: NewEditProductMovementComponent
+},
+{
+  path: 'inventory/product-movement/edit/:id',
+  component: NewEditProductMovementComponent
 }];
 
 @NgModule({

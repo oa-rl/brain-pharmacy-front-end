@@ -1,0 +1,22 @@
+<form [formGroup]="form">
+    <div class="flex justify-center items-center h-screen">
+      <div class="flex flex-col w-full max-w-md">
+        <brain-loading *ngIf="loading"></brain-loading>
+          <brain-bread-crumbs [breadCrum]="breadCrum"></brain-bread-crumbs>
+          <input type="string" (focusout)="setValue('productCombinationTemp','productCombinationId', listOfProductsCombination!.data)" list="productList" value placeholder="Producto" formControlName="productCombinationTemp"
+          [brainInputError]="inputHasError('productCombinationTemp')"/>
+          <datalist id="productList">
+              <option *ngFor="let product of listOfProductsCombination?.data" value="{{product.product?.name}} {{product.amountSize}} {{product.size?.name}} {{product.medicalHouse?.name}} ({{product.saleFor?.name}})">Cod# {{product.id}}</option>
+          </datalist>
+          <input type="text" placeholder="Fecha de expiración"
+            [brainInputError]="inputHasError('expirationDate')" formControlName="expirationDate" />
+            <input type="number" placeholder="Cantidad"
+            [brainInputError]="inputHasError('expirationDate')" formControlName="expirationDate" />
+        <div class="w-full flex justify-between my-5">
+          <brain-save-button [isDesabled]="!formIsValid()" (do)="save($event)"></brain-save-button>
+          <brain-cancel-button title="Cancelar" message="Quiere cancelar el registro ?" (doIt)="cancel($event)">
+          </brain-cancel-button>
+        </div>
+      </div>
+    </div>
+  </form>

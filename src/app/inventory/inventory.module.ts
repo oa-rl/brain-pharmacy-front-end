@@ -13,6 +13,8 @@ import { NewEditMedicalHouseComponent } from './new-edit-medical-house/new-edit-
 import { NewEditProductCombinationComponent } from './new-edit-product-combination/new-edit-product-combination.component';
 import { NewEditProductComponent } from './new-edit-product/new-edit-product.component';
 import { NewEditSizeComponent } from './new-edit-size/new-edit-size.component';
+import { NewEditProductMovementComponent } from './new-edit-product-movement/new-edit-product-movement.component';
+import { ListProductMovementComponent } from './list-product-movement/list-product-movement.component';
 
 
 @NgModule({
@@ -25,6 +27,8 @@ import { NewEditSizeComponent } from './new-edit-size/new-edit-size.component';
     NewEditMedicalHouseComponent,
     ListProductCombinationComponent,
     NewEditProductCombinationComponent,
+    NewEditProductMovementComponent,
+    ListProductMovementComponent,
   ],
   imports: [
     CommonModule,

@@ -39,3 +39,15 @@ export interface Customer extends Main {
     phone1: string,
     phone2: string
 }
+
+export interface ProductMovement extends Main {
+    productCombinationId: number,
+    expirationDate: Date,
+    quantity: number,
+    operationTypeId: number
+}
+
+export interface OperationType extends Main {
+  sign: string,
+  description: string
+}
