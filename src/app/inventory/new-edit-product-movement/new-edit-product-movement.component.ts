@@ -52,8 +52,16 @@ export class NewEditProductMovementComponent extends FormComponent implements On
   async loadMaster() {
     const promise = await Promise.all([this._apiProductCombination.find().toPromise(), this._apiOperationType.find().toPromise()]);
     console.log(promise);
-    this.listOfProductsCombination = promise[0];
+    this.listOfProductsCombination = this.addJoinName(promise[0]);
+    console.log(this.listOfProductsCombination);
     this.listOfOperationType = promise[1];
+  }
+
+  addJoinName(products:  ListData<Array<ProductCombination>>) {
+    products.data.forEach((product: ProductCombination) => {
+      product.joinName = `${product.product?.name} ${product.amountSize} ${product.size?.name} ${product.medicalHouse?.name} (${product.saleFor?.name})` 
+    });
+    return products;
   }
 
   async find() {
