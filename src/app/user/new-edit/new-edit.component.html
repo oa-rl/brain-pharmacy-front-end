@@ -2,12 +2,8 @@
 <div class="flex h-screen">
   <div class="w-full flex flex-col justify-center items-center mt-5">
     <div class="max-w-md">
-      <div class="text-base breadcrumbs">
-        <ul>
-          <li><a>Inicio</a></li> 
-          <li>Nuevo Usuario</li>
-        </ul>
-      </div>
+      <brain-loading *ngIf="loading"></brain-loading>
+        <brain-bread-crumbs [breadCrum]="breadCrum"></brain-bread-crumbs>
       <input [brainInputError]="inputHasError('name')" formControlName="name" type="text" placeholder="Nombres"  />
       <input [brainInputError]="inputHasError('lastName')" formControlName="lastName" type="text" placeholder="Apellidos" ngClass="my-5" />
       <input [brainInputError]="inputHasError('email')" formControlName="email" type="emailo" placeholder="Email"  />

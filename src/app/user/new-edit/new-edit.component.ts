@@ -47,7 +47,10 @@ export class NewEditComponent extends FormComponent implements OnInit {
   async loadProfile() {
     this.listOfProfile = await this._apiProfile.find().toPromise();
     if(this._id !== 0) {
-      this.findObj(this.listOfProfile.data,'profileId','profileTemp');
+      setTimeout(() => {
+        this.findObj(this.listOfProfile.data,'profileId','profileTemp');
+        
+      }, 0);
     }
   }
 
