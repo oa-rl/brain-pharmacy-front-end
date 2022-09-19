@@ -43,9 +43,11 @@ export interface Customer extends Main {
 
 export interface ProductMovement extends Main {
     productCombinationId: number,
+    productCombination: ProductCombination,
     expirationDate: Date,
     quantity: number,
     operationTypeId: number
+    operationType: OperationType
 }
 
 export interface OperationType extends Main {
