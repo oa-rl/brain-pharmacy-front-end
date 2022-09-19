@@ -15,6 +15,13 @@ export class CoreService {
     return new Api<T>(this.http, area);
   }
 
+  stringToDate(date: string): Date {
+    const year = date.substring(0,4);
+    const month = date.substring(4,6);
+    const day = date.substring(6,8);
+    return new Date(`${year}/${month}/${day}`);
+  }
+
   savingOn() {
     this._isSaving = true;
   }

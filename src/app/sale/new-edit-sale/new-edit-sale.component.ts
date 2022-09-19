@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { UntypedFormBuilder, Validators } from '@angular/forms';
 import { Notify } from 'notiflix';
 import { CoreService } from 'src/app/core/core.service';
 import { FormComponent } from 'src/app/core/form.component';
@@ -11,7 +11,7 @@ import { FormComponent } from 'src/app/core/form.component';
 })
 export class NewEditSaleComponent extends FormComponent implements OnInit {
 
-  constructor(public core: CoreService, protected builder: FormBuilder) {
+  constructor(public core: CoreService, protected builder: UntypedFormBuilder) {
     super();
   }
 

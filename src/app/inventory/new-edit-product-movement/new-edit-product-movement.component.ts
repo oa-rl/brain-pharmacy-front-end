@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { UntypedFormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CoreService } from 'src/app/core/core.service';
 import { FormComponent } from 'src/app/core/form.component';
@@ -33,7 +33,7 @@ export class NewEditProductMovementComponent extends FormComponent implements On
   public listOfOperationType!: ListData<Array<OperationType>>;
 
 
-  constructor(private _core: CoreService, protected builder: FormBuilder, private route: ActivatedRoute, private _route:Router) {
+  constructor(private _core: CoreService, protected builder: UntypedFormBuilder, private route: ActivatedRoute, private _route:Router) {
     super();
     this._api = this._core.resource('ProductMovement');
     this._apiProductCombination = this._core.resource('ProductCombination');
@@ -103,6 +103,9 @@ export class NewEditProductMovementComponent extends FormComponent implements On
     if (value && this.formIsValid()) {
       try {
         const opt = (this._id === 0) ? 'insert' : 'update';
+        if(this._form.value.operationTypeId === 1) {
+          this._form.value.expirationDate = this._core.stringToDate(this._form.value.expirationDate)
+        }
         await this._api[opt](this._form.value).toPromise();
         this.goBack();
         this.notifySuccess();
@@ -115,7 +118,7 @@ export class NewEditProductMovementComponent extends FormComponent implements On
   }
 
   goBack() {
-    this._route.navigate(['/inventory/product/list']);
+    this._route.navigate(['/inventory/product-movement/list']);
   }
 
 }

@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { IConfig, NgxMaskModule } from 'ngx-mask';
 import { DirectivesModule } from '../directives/directives.module';
 import { WidgetsModule } from '../widgets/widgets.module';
 import { InventoryRoutingModule } from './inventory-routing.module';
@@ -16,6 +17,9 @@ import { NewEditProductMovementComponent } from './new-edit-product-movement/new
 import { NewEditProductComponent } from './new-edit-product/new-edit-product.component';
 import { NewEditSizeComponent } from './new-edit-size/new-edit-size.component';
 
+const maskConfig: Partial<IConfig> = {
+  validation: false,
+};
 @NgModule({
   declarations: [
     NewEditProductComponent,
@@ -36,6 +40,7 @@ import { NewEditSizeComponent } from './new-edit-size/new-edit-size.component';
     FormsModule, 
     ReactiveFormsModule,
     DirectivesModule,
+    NgxMaskModule.forRoot(maskConfig),
   ]
 })
 export class InventoryModule { }

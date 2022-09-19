@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { UntypedFormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Notify } from 'notiflix';
 import { CoreService } from 'src/app/core/core.service';
@@ -28,7 +28,7 @@ export class NewEditSizeComponent extends FormComponent implements OnInit {
     }
   ]
 
-  constructor(private _core: CoreService, protected builder: FormBuilder, private route: ActivatedRoute, private _route:Router) {
+  constructor(private _core: CoreService, protected builder: UntypedFormBuilder, private route: ActivatedRoute, private _route:Router) {
     super();
     this._api = this._core.resource('Size');
   }

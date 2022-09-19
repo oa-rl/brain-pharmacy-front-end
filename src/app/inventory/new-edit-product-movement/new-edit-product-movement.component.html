@@ -3,20 +3,20 @@
       <div class="flex flex-col w-full max-w-md">
         <brain-loading *ngIf="loading"></brain-loading>
           <brain-bread-crumbs [breadCrum]="breadCrum"></brain-bread-crumbs>
-          <input type="string" (focusout)="setValue('productCombinationTemp','productCombinationId', listOfProductsCombination!.data, 'joinName')" list="productList" value placeholder="Producto" formControlName="productCombinationTemp"
-          [brainInputError]="inputHasError('productCombinationTemp')"/>
-          <datalist id="productList">
-              <option *ngFor="let product of listOfProductsCombination?.data" value="{{product.product?.name}} {{product.amountSize}} {{product.size?.name}} {{product.medicalHouse?.name}} ({{product.saleFor?.name}})">Cod# {{product.id}}</option>
-          </datalist>
-          <input type="text" placeholder="Fecha de expiración"
-            [brainInputError]="inputHasError('expirationDate')" ngClass="my-5" formControlName="expirationDate" />
-            <input type="number" placeholder="Cantidad"
-            [brainInputError]="inputHasError('expirationDate')" formControlName="expirationDate" />
-            <input type="string" (focusout)="setValue('operationTypeTemp','operationTypeId', listOfOperationType!.data, 'description')" list="operationTypeKey" value placeholder="Tipo de movimiento" formControlName="operationTypeTemp"
+          <input type="string" (focusout)="setValue('operationTypeTemp','operationTypeId', listOfOperationType!.data, 'description')" list="operationTypeKey" value placeholder="Tipo de movimiento" formControlName="operationTypeTemp"
             [brainInputError]="inputHasError('operationTypeTemp')" ngClass="mt-5"/>
             <datalist id="operationTypeKey">
                 <option *ngFor="let operationType of listOfOperationType?.data" [value]="operationType.description">Cod# {{operationType.id}}</option>
             </datalist>
+          <input type="string" (focusout)="setValue('productCombinationTemp','productCombinationId', listOfProductsCombination!.data, 'joinName')" list="productList" value placeholder="Producto" formControlName="productCombinationTemp"
+          [brainInputError]="inputHasError('productCombinationTemp')" [ngClass]="{'my-5': (form.value.operationTypeId !== 1), 'mt-5': (form.value.operationTypeId === 1)}"/>
+          <datalist id="productList">
+              <option *ngFor="let product of listOfProductsCombination?.data" value="{{product.product?.name}} {{product.amountSize}} {{product.size?.name}} {{product.medicalHouse?.name}} ({{product.saleFor?.name}})">Cod# {{product.id}}</option>
+          </datalist>
+          <input *ngIf="(form.value.operationTypeId === 1)" type="text" placeholder="Fecha de expiración"
+            [brainInputError]="inputHasError('expirationDate')" ngClass="my-5" formControlName="expirationDate" mask="0000/M0/d0" />
+            <input type="number" placeholder="Cantidad"
+            [brainInputError]="inputHasError('quantity')" formControlName="quantity" />
         <div class="w-full flex justify-between my-5">
           <brain-save-button [isDesabled]="!formIsValid()" (do)="save($event)"></brain-save-button>
           <brain-cancel-button title="Cancelar" message="Quiere cancelar el registro ?" (doIt)="cancel($event)">

@@ -1,5 +1,5 @@
 import { Component, Input } from "@angular/core";
-import { FormControl, FormGroup } from "@angular/forms";
+import { UntypedFormControl, UntypedFormGroup } from "@angular/forms";
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import { find, isUndefined } from "lodash";
 
@@ -10,7 +10,7 @@ export abstract class FormComponent {
     protected _form: any;
 
     inputHasError(name: string): boolean {  
-        const form: FormControl  = this._form.get(name);
+        const form: UntypedFormControl  = this._form.get(name);
         if(form.pristine && !form.touched) {
             return false;
         } else {
@@ -59,11 +59,11 @@ export abstract class FormComponent {
       }
 
 
-    get form(): FormGroup {
+    get form(): UntypedFormGroup {
         return this._form;
     }
 
-    @Input() set form(form: FormGroup) {
+    @Input() set form(form: UntypedFormGroup) {
         this._form = form;
     }
 }
