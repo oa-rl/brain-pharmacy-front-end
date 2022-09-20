@@ -65,12 +65,6 @@ export class NewEditSizeComponent extends FormComponent implements OnInit {
     });
   }
 
-  cancel(opt: boolean) {
-    if(opt) {
-      this._form.reset();
-    }
-  }
-
   async save(value: boolean) {
     if (value && this.formIsValid()) {
       try {
@@ -87,6 +81,6 @@ export class NewEditSizeComponent extends FormComponent implements OnInit {
   }
 
   goBack() {
-    this._route.navigate(['/inventory/size/list']);
+    this._route.navigate(['/sale/list']);
   }
 }
