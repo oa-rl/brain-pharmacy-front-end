@@ -2,12 +2,14 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Main } from '../models/main';
 import { Api } from './rest-api';
+import { round } from 'lodash';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CoreService {
   private _isSaving: boolean = false;
+  private _amount: number = 0;
 
   constructor(private http: HttpClient) { }
 
@@ -22,6 +24,15 @@ export class CoreService {
     return new Date(`${year}/${month}/${day}`);
   }
 
+  getAmountWithOutIva(amount: number) {
+    return round((amount /1.12), 2);
+  }
+  getIva(amount: number) {
+    return round((amount - this.getAmountWithOutIva(amount)),2);
+  }
+
+
+
   savingOn() {
     this._isSaving = true;
   }
@@ -32,5 +43,13 @@ export class CoreService {
 
   get isSaving(): boolean {
     return this._isSaving;
+  }
+
+  get amount(): number {
+    return this._amount;
+  }
+
+  set amount(value: number) {
+    this.amount = value;
   }
 }

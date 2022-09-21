@@ -93,12 +93,6 @@ export class NewEditProductMovementComponent extends FormComponent implements On
     });
   }
 
-  cancel(opt: boolean) {
-    if(opt) {
-      this._form.reset();
-    }
-  }
-
   async save(value: boolean) {
     if (value && this.formIsValid()) {
       try {
