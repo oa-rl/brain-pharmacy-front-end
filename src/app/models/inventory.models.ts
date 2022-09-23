@@ -38,7 +38,8 @@ export interface Customer extends Main {
     email: string,
     address: string,
     phone1: string,
-    phone2: string
+    phone2: string,
+    fullName?: string
 }
 
 export interface ProductMovement extends Main {

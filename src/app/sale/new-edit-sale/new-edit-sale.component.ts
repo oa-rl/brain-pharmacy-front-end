@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { UntypedFormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CoreService } from 'src/app/core/core.service';
@@ -7,6 +7,7 @@ import { Api } from 'src/app/core/rest-api';
 import { Customer, ProductCombination } from 'src/app/models/inventory.models';
 import { BreadCrumbs, ListData } from 'src/app/models/main';
 import { SaleInvoice, SaleInvoiceDetails } from 'src/app/models/sale.models';
+import { find, isNil } from 'lodash';
 
 @Component({
   selector: 'brain-new-edit-sale',
@@ -33,6 +34,9 @@ export class NewEditSaleComponent extends FormComponent implements OnInit {
   public listOfProductsCombination!: ListData<Array<ProductCombination>>;
   public listOfCustomer!: ListData<Array<Customer>>;
   public listOfDetails: Array<SaleInvoiceDetails> = [];
+  private _productCombinationTemp!: ProductCombination;
+  
+  @ViewChild('productCombinationInput') productCombinationInput!: ElementRef;
 
 
   constructor(private _core: CoreService, protected builder: UntypedFormBuilder, private route: ActivatedRoute, private _route:Router) {
@@ -53,9 +57,8 @@ export class NewEditSaleComponent extends FormComponent implements OnInit {
 
   async loadMaster() {
     const promise = await Promise.all([this._apiProductCombination.find().toPromise(), this._apiCustomer.find().toPromise()]);
-    console.log(promise);
     this.listOfProductsCombination =  this.addJoinName(promise[0]);
-    this.listOfCustomer = promise[1];
+    this.listOfCustomer = this.addFullName(promise[1]);
   }
 
   addJoinName(products:  ListData<Array<ProductCombination>>) {
@@ -63,6 +66,18 @@ export class NewEditSaleComponent extends FormComponent implements OnInit {
       product.joinName = `${product.product?.name} ${product.amountSize} ${product.size?.name} ${product.medicalHouse?.name} (${product.saleFor?.name})` 
     });
     return products;
+  }
+
+  addFullName(customers:  ListData<Array<Customer>>) {
+    customers.data.forEach((customer: Customer) => {
+      customer.fullName = `${customer.name} ${customer.lastName}`;
+    });
+
+    return customers;
+  }
+
+  setProductCombination() {
+    this._productCombinationTemp  = find(this.listOfProductsCombination.data, {id: this._form.value.productCombinationId}) || Object(); 
   }
 
   async find() {
@@ -83,16 +98,31 @@ export class NewEditSaleComponent extends FormComponent implements OnInit {
 
   addRow() {
     const form = this._form.value;
-    if(form.customerId !== 0 && form.productCombinationId !== 0 && form.quantity !== 0) {
+    if(!isNil(form.customerId) && !isNil(form.productCombinationId) && !isNil(form.quantity)) {
       this.listOfDetails.push({
         productCombinationId: form.productCombinationId, 
-        productRowTemp: `${form.productCombinationTemp} Q. ${form.productCombination.price} X ${form.quantity} = ${(form.productCombination.price * form.quantity)}`,
+        productRowTemp: `${form.productCombinationTemp} Q.${this._productCombinationTemp.price} X ${form.quantity} = Q.${(this._productCombinationTemp.price * form.quantity)}`,
         amount: form.quantity,
-        price: form.productCombination.price,
-        priceWithOutTax: this._core.getAmountWithOutIva(form.productCombination.price),
-        tax: this._core.getIva(form.productCombination.price),
+        price: this._productCombinationTemp.price,
+        priceWithOutTax: this._core.getAmountWithOutIva(this._productCombinationTemp.price),
+        tax: this._core.getIva(this._productCombinationTemp.price),
       });
+      this.clearProduct();
+      this.setFocus();
     }
+  
+  }
+
+  removeRow(index: number) {
+    this.listOfDetails.splice(index,1);
+  }
+
+  clearProduct() {
+    this._form.patchValue({productCombinationTemp: ''}, {quantity: 1}, {productCombinationId: 0});
+  }
+
+  setFocus() {
+    this.productCombinationInput.nativeElement.focus();
   }
 
 
@@ -103,6 +133,7 @@ export class NewEditSaleComponent extends FormComponent implements OnInit {
       productCombinationId: [null, [Validators.required]],
       customerTemp: [null, [Validators.required]],
       customerId:  [null, [Validators.required]],
+      quantity: 1,
       saleInvoiceDetails: [[]]
     });
   }

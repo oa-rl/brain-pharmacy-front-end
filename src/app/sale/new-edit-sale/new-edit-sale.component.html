@@ -3,25 +3,25 @@
     <div class="flex flex-col w-full max-w-md">
       <brain-loading *ngIf="loading"></brain-loading>
       <brain-bread-crumbs [breadCrum]="breadCrum"></brain-bread-crumbs>
-      <input type="string" (focusout)="setValue('customerTemp','customerId', listOfCustomer!.data, 'name')" list="customerKey" value placeholder="Cliente" formControlName="customerTemp"
+      <input type="string" (focusout)="setValue('customerTemp','customerId', listOfCustomer!.data, 'fullName')" list="customerKey" value placeholder="Cliente" formControlName="customerTemp"
       [brainInputError]="inputHasError('customerTemp')" ngClass="mt-5"/>
       <datalist id="customerKey">
-          <option *ngFor="let customer of listOfCustomer?.data" [value]="customer.name">Cod# {{customer.id}}</option>
+          <option *ngFor="let customer of listOfCustomer?.data" [value]="customer.fullName">Cod# {{customer.id}}</option>
       </datalist>
-      <input type="string" (focusout)="setValue('productCombinationTemp','productCombinationId', listOfProductsCombination!.data, 'joinName'); addRow()" list="productList" value placeholder="Producto" formControlName="productCombinationTemp"
-          [brainInputError]="inputHasError('productCombinationTemp')" ngClass="my-5"/>
+      <input #productCombinationInput type="string" (focusout)="setValue('productCombinationTemp','productCombinationId', listOfProductsCombination!.data, 'joinName'); setProductCombination()" list="productList" value placeholder="Producto" formControlName="productCombinationTemp"
+           class="input input-bordered input-primary w-full my-5"/>
           <datalist id="productList">
               <option *ngFor="let product of listOfProductsCombination?.data" value="{{product.product?.name}} {{product.amountSize}} {{product.size?.name}} {{product.medicalHouse?.name}} ({{product.saleFor?.name}})">Cod# {{product.id}}</option>
           </datalist>
-      <input formControlName="name" type="text" placeholder="Catnidad"
+      <input formControlName="quantity" (focusout)="addRow()" type="text" placeholder="Cantidad"
         class="input input-bordered input-primary w-full mb-5" />
       <div class="border-solid border border-black rounded-lg h-56 overflow-scroll p-1">
-        <div class="w-full flex border-b border-primary ">
+        <div class="w-full flex border-b border-primary " *ngFor="let list of listOfDetails; let i = index">
           <div class="w-11/12 flex justify-start items-center">
-            Aspirina 500mg Bayer Q1.00 x 10 = Q10.00
+            {{list.productRowTemp}}
           </div>
-          <div class="w-1/12 flex justify-center items-center border-l border-primary">
-            <i class="fa-regular fa-trash-can cursor-pointe text-error"></i>
+          <div class="w-1/12 flex justify-center items-center border-l border-primary cursor-pointer" (click)="removeRow(i)">
+            <em class="fa-solid fa-xmark"></em>
           </div>
         </div>
       </div>
