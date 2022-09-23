@@ -100,6 +100,8 @@ export class NewEditSaleComponent extends FormComponent implements OnInit {
     const form = this._form.value;
     if(!isNil(form.customerId) && !isNil(form.productCombinationId) && !isNil(form.quantity)) {
       this.listOfDetails.push({
+        id: 0,
+        saleInvoiceId: 0,
         productCombinationId: form.productCombinationId, 
         productRowTemp: `${form.productCombinationTemp} Q.${this._productCombinationTemp.price} X ${form.quantity} = Q.${(this._productCombinationTemp.price * form.quantity)}`,
         amount: form.quantity,
@@ -107,6 +109,7 @@ export class NewEditSaleComponent extends FormComponent implements OnInit {
         priceWithOutTax: this._core.getAmountWithOutIva(this._productCombinationTemp.price),
         tax: this._core.getIva(this._productCombinationTemp.price),
       });
+      console.log(this.listOfDetails);
       this.clearProduct();
       this.setFocus();
     }
@@ -129,6 +132,8 @@ export class NewEditSaleComponent extends FormComponent implements OnInit {
   private initForm() {
     this._form = this.builder.group({
       id: 0,
+      authorization: '123',
+      date: new Date(),
       productCombinationTemp: null,
       productCombinationId: null,
       customerTemp: null,
@@ -142,7 +147,7 @@ export class NewEditSaleComponent extends FormComponent implements OnInit {
     if (value && this.formIsValid()) {
       try {
         const opt = (this._id === 0) ? 'insert' : 'update';
-        this._form.value.saleInvoiceDetails = this.listOfProductsCombination.data;
+        this._form.value.saleInvoiceDetails = this.listOfDetails;
         await this._api[opt](this._form.value).toPromise();
         this.goBack();
         this.notifySuccess();

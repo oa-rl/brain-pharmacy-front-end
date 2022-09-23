@@ -13,7 +13,7 @@
           <datalist id="productList">
               <option *ngFor="let product of listOfProductsCombination?.data" value="{{product.product?.name}} {{product.amountSize}} {{product.size?.name}} {{product.medicalHouse?.name}} ({{product.saleFor?.name}})">Cod# {{product.id}}</option>
           </datalist>
-      <input formControlName="quantity" (focusout)="addRow()" type="text" placeholder="Cantidad"
+      <input formControlName="quantity" (focusout)="addRow()" type="number" placeholder="Cantidad"
         class="input input-bordered input-primary w-full mb-5" />
       <div class="border-solid border border-black rounded-lg h-56 overflow-scroll p-1">
         <div class="w-full flex border-b border-primary " *ngFor="let list of listOfDetails; let i = index">
