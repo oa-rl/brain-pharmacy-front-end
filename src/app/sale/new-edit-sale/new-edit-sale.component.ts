@@ -129,9 +129,9 @@ export class NewEditSaleComponent extends FormComponent implements OnInit {
   private initForm() {
     this._form = this.builder.group({
       id: 0,
-      productCombinationTemp: [null, [Validators.required]],
-      productCombinationId: [null, [Validators.required]],
-      customerTemp: [null, [Validators.required]],
+      productCombinationTemp: null,
+      productCombinationId: null,
+      customerTemp: null,
       customerId:  [null, [Validators.required]],
       quantity: 1,
       saleInvoiceDetails: [[]]
@@ -142,9 +142,7 @@ export class NewEditSaleComponent extends FormComponent implements OnInit {
     if (value && this.formIsValid()) {
       try {
         const opt = (this._id === 0) ? 'insert' : 'update';
-        if(this._form.value.operationTypeId === 1) {
-          this._form.value.expirationDate = this._core.stringToDate(this._form.value.expirationDate)
-        }
+        this._form.value.saleInvoiceDetails = this.listOfProductsCombination.data;
         await this._api[opt](this._form.value).toPromise();
         this.goBack();
         this.notifySuccess();
