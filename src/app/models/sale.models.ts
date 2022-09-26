@@ -7,6 +7,7 @@ export interface SaleInvoice extends Main {
     customerId: number,
     customer: Customer
     saleInvoiceDetails: Array<SaleInvoiceDetails>
+    userId: number
 }
 
 export interface SaleInvoiceDetails extends Main {
