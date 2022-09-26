@@ -17,7 +17,7 @@ export class ListSaleComponent implements OnInit {
   public loading:boolean = false;
   public breadCrum: Array<BreadCrumbs> = [
     {
-      name: 'Lista de medidas'
+      name: 'Lista de facturas'
     }
   ]
 
