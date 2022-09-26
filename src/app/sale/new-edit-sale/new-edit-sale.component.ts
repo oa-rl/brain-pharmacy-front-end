@@ -7,7 +7,7 @@ import { Api } from 'src/app/core/rest-api';
 import { Customer, ProductCombination } from 'src/app/models/inventory.models';
 import { BreadCrumbs, ListData } from 'src/app/models/main';
 import { SaleInvoice, SaleInvoiceDetails } from 'src/app/models/sale.models';
-import { find, isNil } from 'lodash';
+import { find, isNil, round } from 'lodash';
 
 @Component({
   selector: 'brain-new-edit-sale',
@@ -35,6 +35,7 @@ export class NewEditSaleComponent extends FormComponent implements OnInit {
   public listOfCustomer!: ListData<Array<Customer>>;
   public listOfDetails: Array<SaleInvoiceDetails> = [];
   private _productCombinationTemp!: ProductCombination;
+  public displayContainer: boolean = true;
   
   @ViewChild('productCombinationInput') productCombinationInput!: ElementRef;
 
@@ -46,12 +47,24 @@ export class NewEditSaleComponent extends FormComponent implements OnInit {
     this._apiCustomer = this._core.resource('Customer');
   }
 
-  ngOnInit(): void {
+  async ngOnInit() {
     this._id = Number((this.route.snapshot.paramMap.get('id') || 0)?.toString())!;
     this.initForm();
-    this.loadMaster();
+    await this.loadMaster();
     if(this._id !== 0) {
-      this.find();
+      await this.find();
+      if(this._id !== 0) {
+        const fullName: string = find(this.listOfCustomer.data, {id: this._form.value.customerId})?.fullName || '';
+        this._form.value.saleInvoiceDetails.forEach((sale:SaleInvoiceDetails) => {
+          const product: ProductCombination = find(this.listOfProductsCombination.data, {id: sale.productCombinationId})!;
+          sale.productRowTemp = `${product.joinName} Q.${sale.price} X ${sale.amount} = Q.${(sale.price * sale.amount)}`;
+        });
+        this._form.patchValue({customerTemp: fullName});
+        this.listOfDetails = this._form.value.saleInvoiceDetails;
+        this._form.disable();
+        this.displayContainer = false;
+        console.log(this._form.value);
+      }
     }
   }
 
@@ -86,6 +99,7 @@ export class NewEditSaleComponent extends FormComponent implements OnInit {
       this._core.savingOn();
       try {
         const data: SaleInvoice = await this._api.findById(this._id).toPromise();
+        console.log(data);
         this._form.patchValue(data);
         this._form.enable();
       } catch (error) {
@@ -109,11 +123,17 @@ export class NewEditSaleComponent extends FormComponent implements OnInit {
         priceWithOutTax: this._core.getAmountWithOutIva(this._productCombinationTemp.price),
         tax: this._core.getIva(this._productCombinationTemp.price),
       });
-      console.log(this.listOfDetails);
       this.clearProduct();
       this.setFocus();
     }
-  
+  }
+
+  getTotal( ): number {
+    let total:number = 0.0;
+    this.listOfDetails.forEach((sale: SaleInvoiceDetails) => {
+      total += round((sale.amount * sale.price), 2) ;
+    });
+    return total;
   }
 
   removeRow(index: number) {

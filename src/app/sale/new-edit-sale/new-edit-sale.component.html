@@ -20,12 +20,15 @@
           <div class="w-11/12 flex justify-start items-center">
             {{list.productRowTemp}}
           </div>
-          <div class="w-1/12 flex justify-center items-center border-l border-primary cursor-pointer" (click)="removeRow(i)">
+          <div *ngIf="displayContainer" class="w-1/12 flex justify-center items-center border-l border-primary cursor-pointer" (click)="removeRow(i)">
             <em class="fa-solid fa-xmark"></em>
           </div>
         </div>
       </div>
-      <div class="w-full flex justify-between my-5">
+      <div class="w-full max-w-md mt-3 bg-black rounded-lg flex justify-center items-center">
+        <span class="text-white">Total: Q.{{getTotal()}}</span>
+      </div>
+      <div class="w-full flex justify-between my-5" *ngIf="displayContainer">
         <brain-save-button (do)="save($event)"></brain-save-button>
         <brain-cancel-button title="Cancelar" message="Quiere cancelar el registro ?" (doIt)="cancel($event)">
         </brain-cancel-button>
