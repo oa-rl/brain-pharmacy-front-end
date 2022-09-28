@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { LocalStorageService } from 'ngx-localstorage';
 import { CoreService } from 'src/app/core/core.service';
 import { Api } from 'src/app/core/rest-api';
 import { Company } from 'src/app/models/company';
@@ -21,7 +22,7 @@ export class ListComponent implements OnInit {
     }
   ]
 
-  constructor(private _core: CoreService, private _route:Router) { 
+  constructor(private _core: CoreService, private _route:Router, private _storage: LocalStorageService) { 
     this._api = this._core.resource('Company');
   }
 
