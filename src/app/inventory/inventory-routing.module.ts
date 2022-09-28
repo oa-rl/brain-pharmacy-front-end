@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { IsAuthGuard } from '../guard/auth/is-auth.guard';
 import { ListMedicalHouseComponent } from './list-medical-house/list-medical-house.component';
 import { ListProductCombinationComponent } from './list-product-combination/list-product-combination.component';
 import { ListProductMovementComponent } from './list-product-movement/list-product-movement.component';
@@ -13,55 +14,70 @@ import { NewEditSizeComponent } from './new-edit-size/new-edit-size.component';
 
 const routes: Routes = [{
   path: 'inventory/product/list',
-  component: ListProductComponent
+  component: ListProductComponent,
+  canActivate:[IsAuthGuard]
 },
 {
   path: 'inventory/product/new',
-  component: NewEditProductComponent
+  component: NewEditProductComponent,
+  canActivate:[IsAuthGuard]
 },
 {
   path: 'inventory/product/edit/:id',
-  component: NewEditProductComponent
+  component: NewEditProductComponent,
+  canActivate:[IsAuthGuard]
 }, {
   path: 'inventory/size/list',
-  component: ListSizeComponent
+  component: ListSizeComponent,
+  canActivate:[IsAuthGuard]
 }, {
   path: 'inventory/size/new',
-  component: NewEditSizeComponent
+  component: NewEditSizeComponent,
+  canActivate:[IsAuthGuard]
 },
 {
   path: 'inventory/size/edit/:id',
-  component: NewEditSizeComponent
+  component: NewEditSizeComponent,
+  canActivate:[IsAuthGuard]
 }, {
   path: 'inventory/medical-house/list',
-  component: ListMedicalHouseComponent
+  component: ListMedicalHouseComponent,
+  canActivate:[IsAuthGuard]
 },{
   path: 'inventory/medical-house/new',
-  component: NewEditMedicalHouseComponent
+  component: NewEditMedicalHouseComponent,
+  canActivate:[IsAuthGuard]
 },
 {
   path: 'inventory/medical-house/edit/:id',
-  component: NewEditMedicalHouseComponent
+  component: NewEditMedicalHouseComponent,
+  canActivate:[IsAuthGuard]
 }, {
   path: 'inventory/product-combination/list',
-  component: ListProductCombinationComponent
+  component: ListProductCombinationComponent,
+  canActivate:[IsAuthGuard]
 }, {
   path: 'inventory/product-combination/new',
-  component: NewEditProductCombinationComponent
+  component: NewEditProductCombinationComponent,
+  canActivate:[IsAuthGuard]
 },
 {
   path: 'inventory/product-combination/edit/:id',
-  component: NewEditProductCombinationComponent
+  component: NewEditProductCombinationComponent,
+  canActivate:[IsAuthGuard]
 }, {
   path: 'inventory/product-movement/list',
-  component: ListProductMovementComponent
+  component: ListProductMovementComponent,
+  canActivate:[IsAuthGuard]
 }, {
   path: 'inventory/product-movement/new',
-  component: NewEditProductMovementComponent
+  component: NewEditProductMovementComponent,
+  canActivate:[IsAuthGuard]
 },
 {
   path: 'inventory/product-movement/edit/:id',
-  component: NewEditProductMovementComponent
+  component: NewEditProductMovementComponent,
+  canActivate:[IsAuthGuard]
 }];
 
 @NgModule({

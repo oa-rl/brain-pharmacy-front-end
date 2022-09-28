@@ -17,3 +17,9 @@ export interface BreadCrumbs {
 export interface Profile extends Main {
     name: string
 }
+
+export interface ObjData<T> {
+    data: T,
+    ok: boolean,
+    statusCode: number
+}

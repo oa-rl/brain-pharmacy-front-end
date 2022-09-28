@@ -10,6 +10,7 @@ import { CompanyModule } from './company/company.module';
 import { CustomerModule } from './customer/customer.module';
 import { DirectivesModule } from './directives/directives.module';
 import { InventoryModule } from './inventory/inventory.module';
+import { PublicModule } from './public/public.module';
 import { SaleModule } from './sale/sale.module';
 import { UserModule } from './user/user.module';
 
@@ -34,7 +35,8 @@ import { UserModule } from './user/user.module';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    DirectivesModule
+    DirectivesModule,
+    PublicModule
   ],
   providers: [
   ],

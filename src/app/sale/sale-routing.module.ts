@@ -1,17 +1,21 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { IsAuthGuard } from '../guard/auth/is-auth.guard';
 import { ListSaleComponent } from './list-sale/list-sale.component';
 import { NewEditSaleComponent } from './new-edit-sale/new-edit-sale.component';
 
 const routes: Routes = [{
   path: 'sale/list',
-  component: ListSaleComponent
+  component: ListSaleComponent,
+  canActivate:[IsAuthGuard]
 }, {
   path: 'sale/new',
-  component: NewEditSaleComponent
+  component: NewEditSaleComponent,
+  canActivate:[IsAuthGuard]
 }, {
   path: 'sale/edit/:id',
-  component: NewEditSaleComponent
+  component: NewEditSaleComponent,
+  canActivate:[IsAuthGuard]
 }];
 
 @NgModule({

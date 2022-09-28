@@ -1,20 +1,24 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { IsAuthGuard } from '../guard/auth/is-auth.guard';
 import { ListComponent } from './list/list.component';
 import { NewEditComponent } from './new-edit/new-edit.component';
 
 const routes: Routes = [
   {
     path: 'company/list',
-    component: ListComponent
+    component: ListComponent,
+    canActivate:[IsAuthGuard]
   },
   {
     path: 'company/new',
-    component: NewEditComponent
+    component: NewEditComponent,
+    canActivate:[IsAuthGuard]
   },
   {
     path: 'company/edit/:id',
-    component: NewEditComponent
+    component: NewEditComponent,
+    canActivate:[IsAuthGuard]
   },
 ];
 

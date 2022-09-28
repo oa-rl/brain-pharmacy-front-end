@@ -1,0 +1,16 @@
+<form [formGroup]="form">
+    <div class="flex h-screen">
+      <div class="w-full flex flex-col justify-center items-center ">
+        <div class="max-w-md">
+          <brain-loading *ngIf="loading"></brain-loading>
+          <brain-bread-crumbs [breadCrum]="breadCrum"></brain-bread-crumbs>
+          <input [brainInputError]="inputHasError('email')" formControlName="email" type="text" placeholder="Correo" ngClass="mb-5"  />
+          <input [brainInputError]="inputHasError('password')" formControlName="password" type="password" placeholder="Contraseña"  />
+          <div class="w-full flex justify-between items-end my-5">
+            <button [disabled]="!formIsValid()" class="btn btn-outline" (click)="save(true)">Ingresar</button>
+            <a class="link" [routerLink]="['/user/new']">Nuevo usuario</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>

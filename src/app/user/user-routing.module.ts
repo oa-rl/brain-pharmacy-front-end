@@ -1,12 +1,14 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { IsAuthGuard } from '../guard/auth/is-auth.guard';
 import { ListComponent } from './list/list.component';
 import { NewEditComponent } from './new-edit/new-edit.component';
 
 const routes: Routes = [
   {
     path: 'user/list',
-    component: ListComponent
+    component: ListComponent,
+    canActivate:[IsAuthGuard]
   },
   {
     path: 'user/new',
@@ -14,7 +16,8 @@ const routes: Routes = [
   },
   {
     path: 'user/edit/:id',
-    component: NewEditComponent
+    component: NewEditComponent,
+    canActivate:[IsAuthGuard]
   },
 ];
 
