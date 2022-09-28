@@ -10,6 +10,7 @@ import { round } from 'lodash';
 export class CoreService {
   private _isSaving: boolean = false;
   private _amount: number = 0;
+  private _isLogged: boolean = false;
 
   constructor(private http: HttpClient) { }
 
@@ -33,6 +34,8 @@ export class CoreService {
 
 
 
+
+
   savingOn() {
     this._isSaving = true;
   }
@@ -52,4 +55,13 @@ export class CoreService {
   set amount(value: number) {
     this.amount = value;
   }
+
+  set isLogged(v: boolean) {
+    this._isLogged = v;
+  }
+
+  get isLogged(): boolean {
+    return this._isLogged;
+  }
+
 }

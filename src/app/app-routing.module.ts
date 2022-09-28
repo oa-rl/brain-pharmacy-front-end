@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { IsAuthGuard } from './guard/auth/is-auth.guard';
 
 const routes: Routes = [
   {
@@ -16,9 +15,12 @@ const routes: Routes = [
   }, {
     path: 'user',
     loadChildren: () => import('./user/user.module').then(m => m.UserModule) ,
+  }, {
+    path: 'sale',
+    loadChildren: () => import('./sale/sale.module').then(m => m.SaleModule) ,
   },{
     path: '',
-    redirectTo: 'public',
+    redirectTo: 'sale',
     pathMatch: 'full'
   }
 ];

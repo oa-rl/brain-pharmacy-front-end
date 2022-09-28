@@ -1,6 +1,5 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
-import { LocalStorageService } from 'ngx-localstorage';
-import { isNil } from 'lodash';
+import { CoreService } from './core/core.service';
 
 @Component({
   selector: 'brain-root',
@@ -16,8 +15,7 @@ export class AppComponent {
     this.router?.nativeElement.click();
   }
 
-  constructor(private _storage: LocalStorageService) {
-    this.isLogged = !isNil(this._storage.get('token')) ;
+  constructor(public core: CoreService) {
   }
 
 }

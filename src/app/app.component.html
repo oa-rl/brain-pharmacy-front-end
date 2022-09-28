@@ -2,7 +2,7 @@
     <input id="my-drawer" #router type="checkbox" class="drawer-toggle" />
     <div class="drawer-content">
       <div class="w-full h-full px-5">
-        <label *ngIf="isLogged" for="my-drawer" class="btn btn-primary drawer-button fixed mt-5"> <em class="fa-solid fa-bars"></em></label>
+        <label *ngIf="core.isLogged" for="my-drawer" class="btn btn-primary drawer-button fixed mt-5"> <em class="fa-solid fa-bars"></em></label>
         <router-outlet></router-outlet>
     </div>
     </div> 

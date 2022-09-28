@@ -27,6 +27,7 @@ export class LoginComponent extends FormComponent implements OnInit {
   constructor(private _core: CoreService, protected builder: UntypedFormBuilder, private route: ActivatedRoute, private _route:Router, private _storage: LocalStorageService) {
     super();
     this._api = this._core.resource('User');
+    this._storage.remove('token');
   }
 
   ngOnInit(): void {
@@ -46,8 +47,10 @@ export class LoginComponent extends FormComponent implements OnInit {
       try {
        this._token = (await this._api.insert(this._form.value,'login').toPromise() as unknown) as ObjData<string>;
         this._storage.set('token',this._token.data);
+        this._core.isLogged = true;
+        this._route.navigate(['/sale/new']);
       } catch (error) {
-        
+        this._core.isLogged = false;
       } finally {
         this.loading = false;
       }
