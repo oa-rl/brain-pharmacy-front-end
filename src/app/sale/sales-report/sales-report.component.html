@@ -3,6 +3,9 @@
         <brain-loading *ngIf="loading"></brain-loading>
         <brain-bread-crumbs [breadCrum]="breadCrum"></brain-bread-crumbs>
     </div>
+    <div>
+        <button (click)="pdf()" >PDF</button>
+    </div>
     <div class="w-full">
         <div class="overflow-y-auto h-96">
             <table class="table w-full">

@@ -6,6 +6,11 @@ import { Api } from 'src/app/core/rest-api';
 import { Customer, ProductCombination } from 'src/app/models/inventory.models';
 import { BreadCrumbs, ListData } from 'src/app/models/main';
 import { SaleInvoice, SaleInvoiceDetails } from 'src/app/models/sale.models';
+import * as pdfMake from "pdfmake/build/pdfmake";
+import * as pdfFonts from 'pdfmake/build/vfs_fonts';
+
+(<any>pdfMake).vfs = pdfFonts.pdfMake.vfs;
+
 
 @Component({
   selector: 'brain-sales-report',
@@ -57,6 +62,35 @@ export class SalesReportComponent extends FormComponent implements OnInit {
       total += detail.amount * detail.price
     });
     return total;
+  }
+
+  pdf() {
+    const row:Array<any> = [];
+    row.push([{ text: 'Fecha', bold: true }, { text: 'Autorización', bold: true }, { text: 'Nombre', bold: true }, { text: 'NIT', bold: true }, { text: 'Total', bold: true } ]);
+    this.listOfSaleInvoice.data.forEach((sale: SaleInvoice) => {
+    row.push(
+      [
+        new Date(sale.date).toLocaleDateString(),
+        sale.authorization,
+        `${sale.customer.name} ${sale.customer.lastName}`,
+        sale.customer.nit,
+        `Q. ${round(this.total(sale),2)}`
+      ]
+    );
+  });
+    const docDefinition = {
+      content: [
+        {
+          layout: 'lightHorizontalLines', // optional
+          table: {
+            headerRows: 2,
+           widths: ['*', '*', '*', '*', '*'],
+            body: row
+          }
+        }
+      ]
+    };
+    pdfMake.createPdf(docDefinition).download();
   }
 
 }
