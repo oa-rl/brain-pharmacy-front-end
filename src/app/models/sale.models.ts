@@ -2,7 +2,7 @@ import { Customer, ProductCombination } from "./inventory.models";
 import { Main } from "./main";
 
 export interface SaleInvoice extends Main {
-    autorization: string,
+    authorization: string,
     date: Date,
     customerId: number,
     customer: Customer

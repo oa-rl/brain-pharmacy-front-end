@@ -19,7 +19,7 @@
               <tr *ngFor="let sale of SaleInvoices?.data" brainRowSelected ngClass="border-b border-primary cursor-pointer"
               (click)="find(sale.id!)">
                 <td class="text-center" >{{sale.date | date: 'dd/MM/yyyy' }}</td>
-                <td class="border-l border-primary">{{sale.autorization}}</td>
+                <td class="border-l border-primary">{{sale.authorization}}</td>
                 <td class="border-l border-primary">{{sale.customer.name}} {{sale.customer.lastName}}</td>
               </tr>
             </tbody>

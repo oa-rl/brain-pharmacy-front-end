@@ -1,0 +1,31 @@
+<div class="flex flex-col justify-center items-center h-screen">
+    <div class="w-full flex justify-center">
+        <brain-loading *ngIf="loading"></brain-loading>
+        <brain-bread-crumbs [breadCrum]="breadCrum"></brain-bread-crumbs>
+    </div>
+    <div class="w-full">
+        <div class="overflow-y-auto h-96">
+            <table class="table w-full">
+              <thead>
+                <tr>
+                  <th></th>
+                  <th>Autorización</th>
+                  <th>Nombre</th>
+                  <th>Nit</th>
+                  <th>Total</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let sale of listOfSaleInvoice?.data; let i = index">
+                  <td>{{i + 1}}</td>
+                  <td>{{sale.authorization}}</td>
+                  <td>{{sale.customer.name}} {{sale.customer.lastName}}</td>
+                  <td>{{sale.customer.nit}}</td>
+                  <td>Q.{{total(sale)}}</td>
+                </tr>
+           
+              </tbody>
+            </table>
+          </div>
+    </div>
+</div>

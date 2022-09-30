@@ -1,6 +1,5 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { IConfig, NgxMaskModule } from 'ngx-mask';
 import { DirectivesModule } from '../directives/directives.module';
@@ -16,6 +15,7 @@ import { NewEditProductCombinationComponent } from './new-edit-product-combinati
 import { NewEditProductMovementComponent } from './new-edit-product-movement/new-edit-product-movement.component';
 import { NewEditProductComponent } from './new-edit-product/new-edit-product.component';
 import { NewEditSizeComponent } from './new-edit-size/new-edit-size.component';
+
 
 const maskConfig: Partial<IConfig> = {
   validation: false,

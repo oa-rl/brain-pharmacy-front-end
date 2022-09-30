@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { IsAuthGuard } from '../guard/auth/is-auth.guard';
 import { ListSaleComponent } from './list-sale/list-sale.component';
 import { NewEditSaleComponent } from './new-edit-sale/new-edit-sale.component';
+import { SalesReportComponent } from './sales-report/sales-report.component';
 
 const routes: Routes = [{
   path: 'sale/list',
@@ -15,6 +16,10 @@ const routes: Routes = [{
 }, {
   path: 'sale/edit/:id',
   component: NewEditSaleComponent,
+  canActivate:[IsAuthGuard]
+}, {
+  path: 'sale/report',
+  component: SalesReportComponent,
   canActivate:[IsAuthGuard]
 }];
 
