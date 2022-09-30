@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import {isNil} from 'lodash';
 import { ListData, Main } from '../models/main';
+import { LocalStorageService } from 'ngx-localstorage';
 
 export class Api<T extends Main>  {
     private _url = 'https://localhost:7212/api';
@@ -9,6 +10,7 @@ export class Api<T extends Main>  {
     constructor(
         public _http: HttpClient,
         public _area: string,
+        private _storage: LocalStorageService
     ) {
         this.headers = new HttpHeaders({
             'Access-Control-Allow-Origin': '*',
@@ -16,6 +18,7 @@ export class Api<T extends Main>  {
             'Access-Control-Allow-Headers':
                 `Content-Type, Depth, User-Agent, X-File-Size, X-Requested-With, If-Modified-Since, X-File-Name, Cache-Control`,
             'Content-Type': 'Application/json',
+            'Authorization' : this._storage.get('token') || ''
         });
     }
 

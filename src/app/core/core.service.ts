@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Main } from '../models/main';
 import { Api } from './rest-api';
 import { round } from 'lodash';
+import { LocalStorageService } from 'ngx-localstorage';
 
 @Injectable({
   providedIn: 'root'
@@ -12,10 +13,10 @@ export class CoreService {
   private _amount: number = 0;
   private _isLogged: boolean = false;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private _storage: LocalStorageService) { }
 
   resource<T extends Main>(area: string) {
-    return new Api<T>(this.http, area);
+    return new Api<T>(this.http, area, this._storage);
   }
 
   stringToDate(date: string): Date {
