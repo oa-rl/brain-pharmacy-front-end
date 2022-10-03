@@ -1,0 +1,40 @@
+<div class="flex flex-col justify-center items-center h-screen">
+    <div class="w-full flex justify-center">
+        <brain-loading *ngIf="loading"></brain-loading>
+        <brain-bread-crumbs [breadCrum]="breadCrum"></brain-bread-crumbs>
+    </div>
+    <div>
+        <button (click)="pdf()" >PDF</button>
+    </div>
+    <div class="w-full">
+        <div class="overflow-y-auto h-96">
+            <table class="table w-full">
+              <thead>
+                <tr>
+                  <th></th>
+                  <th>Movimiento</th>
+                  <th>Motivo</th>
+                  <th>Producto</th>
+                  <th>Cantidad</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let product of listOfMovement?.data; let i = index">
+                  <td>{{i + 1}}</td>
+                  <td>{{product.operationType.sign}}</td>
+                  <td>{{product.operationType.description}}</td>
+                  <td>
+                    {{product.productCombination.product?.name}}
+                    {{product.productCombination.amountSize}}
+                    {{product.productCombination.size?.name}}
+                    {{product.productCombination.medicalHouse?.name}}
+                  </td>
+                  <td>
+                    {{product.quantity}}
+                  </td>
+                </tr>           
+              </tbody>
+            </table>
+          </div>
+    </div>
+</div>

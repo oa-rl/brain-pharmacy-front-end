@@ -6,6 +6,7 @@ import { ListProductCombinationComponent } from './list-product-combination/list
 import { ListProductMovementComponent } from './list-product-movement/list-product-movement.component';
 import { ListProductComponent } from './list-product/list-product.component';
 import { ListSizeComponent } from './list-size/list-size.component';
+import { MovementReportComponent } from './movement-report/movement-report.component';
 import { NewEditMedicalHouseComponent } from './new-edit-medical-house/new-edit-medical-house.component';
 import { NewEditProductCombinationComponent } from './new-edit-product-combination/new-edit-product-combination.component';
 import { NewEditProductMovementComponent } from './new-edit-product-movement/new-edit-product-movement.component';
@@ -77,6 +78,11 @@ const routes: Routes = [{
 {
   path: 'inventory/product-movement/edit/:id',
   component: NewEditProductMovementComponent,
+  canActivate:[IsAuthGuard]
+},
+{
+  path: 'inventory/movement-report',
+  component: MovementReportComponent,
   canActivate:[IsAuthGuard]
 }];
 

@@ -15,6 +15,7 @@ import { NewEditProductCombinationComponent } from './new-edit-product-combinati
 import { NewEditProductMovementComponent } from './new-edit-product-movement/new-edit-product-movement.component';
 import { NewEditProductComponent } from './new-edit-product/new-edit-product.component';
 import { NewEditSizeComponent } from './new-edit-size/new-edit-size.component';
+import { MovementReportComponent } from './movement-report/movement-report.component';
 
 
 const maskConfig: Partial<IConfig> = {
@@ -32,6 +33,7 @@ const maskConfig: Partial<IConfig> = {
     NewEditProductCombinationComponent,
     NewEditProductMovementComponent,
     ListProductMovementComponent,
+    MovementReportComponent,
   ],
   imports: [
     CommonModule,
