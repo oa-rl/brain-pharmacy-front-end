@@ -3,8 +3,12 @@
         <brain-loading *ngIf="loading"></brain-loading>
         <brain-bread-crumbs [breadCrum]="breadCrum"></brain-bread-crumbs>
     </div>
-    <div>
-        <button (click)="pdf()" >PDF</button>
+    <div class="w-full flex justify-around mb-5">
+      <input [(ngModel)]="initDate" type="date"  placeholder="Fecha inicio" class="input input-sm w-40 max-w-xs border-solid border border-black rounded-lg" />
+      <input [(ngModel)]="finishDate" type="date"  placeholder="Fecha fin" class="input input-sm w-40 max-w-xs border-solid border border-black rounded-lg" />
+      <input [(ngModel)]="movement" type="text"  placeholder="Movimiento" class="input input-sm w-40 max-w-xs border-solid border border-black rounded-lg" />
+      <input [(ngModel)]="product" type="text"  placeholder="Producto" class="input input-sm w-40 max-w-xs border-solid border border-black rounded-lg" />
+      <button (click)="search()" class="btn bg-primary btn-sm">Buscar</button>
     </div>
     <div class="w-full">
         <div class="overflow-y-auto h-96">
@@ -12,16 +16,18 @@
               <thead>
                 <tr>
                   <th></th>
-                  <th>Movimiento</th>
+                  <th>Fecha</th>
+                  <th class="text-center">Movimiento</th>
                   <th>Motivo</th>
                   <th>Producto</th>
-                  <th>Cantidad</th>
+                  <th class="text-center">Cantidad</th>
                 </tr>
               </thead>
               <tbody>
                 <tr *ngFor="let product of listOfMovement?.data; let i = index">
                   <td>{{i + 1}}</td>
-                  <td>{{product.operationType.sign}}</td>
+                  <td>{{product.movementDate | date: 'dd/MM/yyyy'}}</td>
+                  <td class="text-center">{{product.operationType.sign}}</td>
                   <td>{{product.operationType.description}}</td>
                   <td>
                     {{product.productCombination.product?.name}}
@@ -29,12 +35,21 @@
                     {{product.productCombination.size?.name}}
                     {{product.productCombination.medicalHouse?.name}}
                   </td>
-                  <td>
+                  <td class="text-center">
                     {{product.quantity}}
                   </td>
                 </tr>           
               </tbody>
             </table>
           </div>
+    </div>
+    <div class="w-full flex justify-center items-center">
+      <div class="dropdown dropdown-top">
+        <label tabindex="0" class="btn btn-sm m-1 bg-primary">Decargar</label>
+        <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
+          <li (click)="pdf()"><a>PDF</a></li>
+          <li><a>Excel (proximamente)</a></li>
+        </ul>
+      </div>
     </div>
 </div>

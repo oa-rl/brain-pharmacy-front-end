@@ -48,7 +48,8 @@ export interface ProductMovement extends Main {
     expirationDate: Date,
     quantity: number,
     operationTypeId: number
-    operationType: OperationType
+    operationType: OperationType,
+    movementDate: Date
 }
 
 export interface OperationType extends Main {
