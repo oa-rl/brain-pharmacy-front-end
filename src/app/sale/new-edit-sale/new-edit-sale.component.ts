@@ -213,7 +213,7 @@ export class NewEditSaleComponent extends FormComponent implements OnInit {
     {text: `TOTAL: Q. ${this.getTotal()}`, alignment: 'center', margin: [0, 0, 20, 20],},
       ]
     };
-    pdfMake.createPdf(docDefinition).download();
+    pdfMake.createPdf(docDefinition).download(`${customer.name} ${customer.lastName} ${customer.nit}`);
   }
 
 

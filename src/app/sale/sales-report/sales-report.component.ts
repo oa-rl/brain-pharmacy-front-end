@@ -128,7 +128,7 @@ export class SalesReportComponent extends FormComponent implements OnInit {
         }
       ]
     };
-    pdfMake.createPdf(docDefinition).download();
+    pdfMake.createPdf(docDefinition).download('Reporte de ventas');
   }
 
 }
