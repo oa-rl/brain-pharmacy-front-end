@@ -5,7 +5,7 @@ import { Product, ProductMovement } from 'src/app/models/inventory.models';
 import { BreadCrumbs, ListData } from 'src/app/models/main';
 import * as pdfMake from "pdfmake/build/pdfmake";
 import * as pdfFonts from 'pdfmake/build/vfs_fonts';
-import { clone, filter, replace } from 'lodash';
+import { clone, filter, orderBy, replace } from 'lodash';
 
 (<any>pdfMake).vfs = pdfFonts.pdfMake.vfs;
 
@@ -43,6 +43,7 @@ export class MovementReportComponent implements OnInit {
   async loadMaster() {
     const promise = await Promise.all([this._api.find().toPromise()]);
     this.listOfMovement = promise[0];
+    this.listOfMovement.data = orderBy(this.listOfMovement.data, ['movementDate', 'ask']);
     this.listOfMovement.data.forEach((movement: ProductMovement) => {
       movement.movementDate = new Date(new Date(movement.movementDate).toDateString())
     });

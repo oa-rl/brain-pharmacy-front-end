@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { clone, filter, find, replace, round } from 'lodash';
+import { clone, filter, find, orderBy, replace, round } from 'lodash';
 import * as pdfMake from "pdfmake/build/pdfmake";
 import * as pdfFonts from 'pdfmake/build/vfs_fonts';
 import { CoreService } from 'src/app/core/core.service';
@@ -61,6 +61,7 @@ export class SalesReportComponent extends FormComponent implements OnInit {
         detail.productCombination = find(promise[0].data,{'id': detail.productCombinationId})
       });
     });
+    this.listOfSaleInvoice.data = orderBy(this.listOfSaleInvoice.data, ['movementDate', 'ask']);
     this.listOfSaleInvoiceSearch = clone(this.listOfSaleInvoice.data);
   }
 
