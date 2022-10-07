@@ -18,5 +18,5 @@ export interface SaleInvoiceDetails extends Main {
     amount: number,
     price: number,
     priceWithOutTax: number,
-    tax: number
+    tax: number,
 }

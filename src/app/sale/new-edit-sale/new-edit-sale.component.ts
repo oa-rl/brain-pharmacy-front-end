@@ -8,6 +8,11 @@ import { Customer, ProductCombination } from 'src/app/models/inventory.models';
 import { BreadCrumbs, ListData } from 'src/app/models/main';
 import { SaleInvoice, SaleInvoiceDetails } from 'src/app/models/sale.models';
 import { find, isNil, round } from 'lodash';
+import * as pdfMake from "pdfmake/build/pdfmake";
+import * as pdfFonts from 'pdfmake/build/vfs_fonts';
+import { TDocumentDefinitions } from 'pdfmake/interfaces';
+
+(<any>pdfMake).vfs = pdfFonts.pdfMake.vfs;
 
 @Component({
   selector: 'brain-new-edit-sale',
@@ -171,6 +176,7 @@ export class NewEditSaleComponent extends FormComponent implements OnInit {
         await this._api[opt](this._form.value).toPromise();
         this.goBack();
         this.notifySuccess();
+        this.pdf();
       } catch (error) {
         
       } finally {
@@ -181,6 +187,33 @@ export class NewEditSaleComponent extends FormComponent implements OnInit {
 
   goBack() {
     this._route.navigate(['/sale/list']);
+  }
+
+  pdf() {
+    const customer: Customer = find(this.listOfCustomer.data, {id: this._form.value.customerId})!;
+    const row:Array<any> = [];
+    this.listOfDetails.forEach((detail: SaleInvoiceDetails) => {
+      row.push(detail.productRowTemp);
+});
+    const docDefinition:TDocumentDefinitions = {
+      pageSize: {
+        width:300,
+        height:'auto'
+      },
+      content: [
+        {text: 'Factura', alignment: 'center'},
+        {text: 'Farmacia San Jose', alignment: 'center'},
+        {text: 'NIT: 76213994', alignment: 'center'},
+        {text: 'Autorización:ADE12354824SD54', alignment: 'center', margin: [0, 0, 0, 20],},
+        {text: `Nombre: ${this._form.value.customerTemp}`},
+        {text: `NIT: ${customer.nit}`, margin: [0, 0, 0, 20]},
+        {
+			ul: row
+		},
+    {text: `TOTAL: Q. ${this.getTotal()}`, alignment: 'center', margin: [0, 0, 20, 20],},
+      ]
+    };
+    pdfMake.createPdf(docDefinition).download();
   }
 
 
