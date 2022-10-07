@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CoreService } from 'src/app/core/core.service';
 import { Api } from 'src/app/core/rest-api';
-import { ProductMovement } from 'src/app/models/inventory.models';
+import { Product, ProductMovement } from 'src/app/models/inventory.models';
 import { BreadCrumbs, ListData } from 'src/app/models/main';
 import * as pdfMake from "pdfmake/build/pdfmake";
 import * as pdfFonts from 'pdfmake/build/vfs_fonts';
@@ -47,13 +47,11 @@ export class MovementReportComponent implements OnInit {
       movement.movementDate = new Date(new Date(movement.movementDate).toDateString())
     });
     this.listOfMovementSearch = clone(this.listOfMovement.data);
-    console.log(this.listOfMovement);
   }
 
   search() {
     this.listOfMovement.data = this.listOfMovementSearch;
     if(this.initDate && this.finishDate) {
-      console.log(this.initDate);
       const newInitDate = new Date(replace(this.initDate.toString(), '-', '/')) ;
       const newFinishDate = new Date(replace(this.finishDate.toString(), '-', '/')) ;
       const data = filter(this.listOfMovement.data, (movement: ProductMovement)=> {
@@ -71,6 +69,13 @@ export class MovementReportComponent implements OnInit {
       });
       this.listOfMovement.data = data;
     }
+
+    if(this.product) {
+      const data = filter(this.listOfMovement.data, (movement: ProductMovement) => {
+        return (movement.productCombination.product?.name.toLowerCase()?.includes(this.product.toLowerCase())) ? true : false;
+      });
+      this.listOfMovement.data = data;
+    }
     
   }
 
@@ -78,7 +83,6 @@ export class MovementReportComponent implements OnInit {
     const row:Array<any> = [];
     row.push([{ text: 'Fecha', bold: true,  alignment: 'center'  },{ text: 'Movimiento', bold: true,  alignment: 'center'  }, { text: 'Motivo', bold: true }, { text: 'Producto', bold: true }, { text: 'Cantidad', bold: true,  alignment: 'center' } ]);
     this.listOfMovement.data.forEach((product: ProductMovement) => {
-      console.log(product)
     row.push(
       [
         new Date(product.movementDate).toLocaleString().split(',')[0],
