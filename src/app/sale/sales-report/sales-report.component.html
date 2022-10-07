@@ -3,8 +3,12 @@
         <brain-loading *ngIf="loading"></brain-loading>
         <brain-bread-crumbs [breadCrum]="breadCrum"></brain-bread-crumbs>
     </div>
-    <div>
-        <button (click)="pdf()" >PDF</button>
+    <div class="w-full flex justify-around mb-5">
+      <input [(ngModel)]="initDate" type="date"  placeholder="Fecha inicio" class="input input-sm w-40 max-w-xs border-solid border border-black rounded-lg" />
+      <input [(ngModel)]="finishDate" type="date"  placeholder="Fecha fin" class="input input-sm w-40 max-w-xs border-solid border border-black rounded-lg" />
+      <input [(ngModel)]="name" type="text"  placeholder="Nombre" class="input input-sm w-40 max-w-xs border-solid border border-black rounded-lg" />
+      <input [(ngModel)]="nit" type="text"  placeholder="NIT" class="input input-sm w-40 max-w-xs border-solid border border-black rounded-lg" />
+      <button (click)="search()" class="btn bg-primary btn-sm">Buscar</button>
     </div>
     <div class="w-full">
         <div class="overflow-y-auto h-96">
@@ -12,6 +16,7 @@
               <thead>
                 <tr>
                   <th></th>
+                  <th>Fecha</th>
                   <th>Autorización</th>
                   <th>Nombre</th>
                   <th>Nit</th>
@@ -21,6 +26,7 @@
               <tbody>
                 <tr *ngFor="let sale of listOfSaleInvoice?.data; let i = index">
                   <td>{{i + 1}}</td>
+                  <td>{{sale.date | date: 'dd/MM/yyyy'}}</td>
                   <td>{{sale.authorization}}</td>
                   <td>{{sale.customer.name}} {{sale.customer.lastName}}</td>
                   <td>{{sale.customer.nit}}</td>
@@ -30,5 +36,14 @@
               </tbody>
             </table>
           </div>
+    </div>
+    <div class="w-full flex justify-center items-center">
+      <div class="dropdown dropdown-top">
+        <label tabindex="0" class="btn btn-sm m-1 bg-primary">Decargar</label>
+        <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
+          <li (click)="pdf()"><a>PDF</a></li>
+          <li><a>Excel (proximamente)</a></li>
+        </ul>
+      </div>
     </div>
 </div>

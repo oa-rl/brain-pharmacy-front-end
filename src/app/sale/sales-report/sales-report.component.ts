@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { find, round } from 'lodash';
+import { clone, filter, find, replace, round } from 'lodash';
 import * as pdfMake from "pdfmake/build/pdfmake";
 import * as pdfFonts from 'pdfmake/build/vfs_fonts';
 import { CoreService } from 'src/app/core/core.service';
 import { FormComponent } from 'src/app/core/form.component';
 import { Api } from 'src/app/core/rest-api';
-import { ProductCombination } from 'src/app/models/inventory.models';
+import { Customer, ProductCombination } from 'src/app/models/inventory.models';
 import { BreadCrumbs, ListData } from 'src/app/models/main';
 import { SaleInvoice, SaleInvoiceDetails } from 'src/app/models/sale.models';
 
@@ -19,6 +19,11 @@ import { SaleInvoice, SaleInvoiceDetails } from 'src/app/models/sale.models';
 })
 export class SalesReportComponent extends FormComponent implements OnInit {
 
+  public initDate!: Date;
+  public finishDate!: Date;
+  public name:string = '';
+  public nit: string = '';
+
   private _api: Api<SaleInvoice>;
   private _apiProductCombination: Api<ProductCombination>;
   public loading: boolean = false;
@@ -30,6 +35,7 @@ export class SalesReportComponent extends FormComponent implements OnInit {
 
   public listOfProductsCombination!: ListData<Array<ProductCombination>>;
   public listOfSaleInvoice!: ListData<Array<SaleInvoice>>;
+  public listOfSaleInvoiceSearch!:Array<SaleInvoice>;
   
 
 
@@ -46,14 +52,16 @@ export class SalesReportComponent extends FormComponent implements OnInit {
 
   async loadMaster() {
     const promise = await Promise.all([this._apiProductCombination.find().toPromise(), this._api.find().toPromise()]);
-    console.log(promise);
+    promise[1].data.forEach((sale: SaleInvoice) => {
+      sale.customer.fullName = `${sale.customer.name} ${sale.customer.lastName}`
+    });
     this.listOfSaleInvoice = promise[1];
     this.listOfSaleInvoice.data.forEach((sale:SaleInvoice) => {
       sale.saleInvoiceDetails.forEach((detail: SaleInvoiceDetails) => {
         detail.productCombination = find(promise[0].data,{'id': detail.productCombinationId})
       });
     });
-    console.log(this.listOfSaleInvoice);
+    this.listOfSaleInvoiceSearch = clone(this.listOfSaleInvoice.data);
   }
 
   total(saleDetails: SaleInvoice): number {
@@ -64,9 +72,41 @@ export class SalesReportComponent extends FormComponent implements OnInit {
     return total;
   }
 
+  search() {
+    this.listOfSaleInvoice.data = this.listOfSaleInvoiceSearch;
+    if(this.initDate && this.finishDate) {
+      const newInitDate = new Date(replace(this.initDate.toString(), '-', '/')) ;
+      const newFinishDate = new Date(replace(this.finishDate.toString(), '-', '/')) ;
+      const data = filter(this.listOfSaleInvoice.data, (sale: SaleInvoice)=> {
+        if(new Date(sale.date) >= newInitDate && new Date(sale.date) <= newFinishDate) {
+          return true;
+        }
+        return false;
+      });
+      this.listOfSaleInvoice.data = data;
+    }
+
+    if(this.name) {
+      const data = filter(this.listOfSaleInvoice.data, (sale: SaleInvoice) => {
+        return (sale.customer.fullName?.toLowerCase()?.includes(this.name.toLowerCase())) ? true : false;
+      });
+      this.listOfSaleInvoice.data = data;
+    }
+
+    if(this.nit) {
+      const data = filter(this.listOfSaleInvoice.data, (sale: SaleInvoice) => {
+        return (sale.customer.nit?.includes(this.nit)) ? true : false;
+      });
+      this.listOfSaleInvoice.data = data;
+    }
+
+    console.log(this.listOfSaleInvoice.data);
+    
+  }
+
   pdf() {
     const row:Array<any> = [];
-    row.push([{ text: 'Fecha', bold: true }, { text: 'Autorización', bold: true }, { text: 'Nombre', bold: true }, { text: 'NIT', bold: true }, { text: 'Total', bold: true } ]);
+    row.push([{ text: 'Fecha', bold: true, alignment: 'center' }, { text: 'Autorización', bold: true, alignment: 'center' }, { text: 'Nombre', bold: true, alignment: 'center' }, { text: 'NIT', bold: true, alignment: 'center' }, { text: 'Total', bold: true, alignment: 'center' } ]);
     this.listOfSaleInvoice.data.forEach((sale: SaleInvoice) => {
     row.push(
       [
@@ -81,9 +121,7 @@ export class SalesReportComponent extends FormComponent implements OnInit {
     const docDefinition = {
       content: [
         {
-          layout: 'lightHorizontalLines', // optional
           table: {
-            headerRows: 2,
            widths: ['*', '*', '*', '*', '*'],
             body: row
           }
