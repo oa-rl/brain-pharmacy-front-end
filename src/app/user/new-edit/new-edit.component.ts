@@ -56,7 +56,6 @@ export class NewEditComponent extends FormComponent implements OnInit {
       this._core.savingOn();
       try {
         const data: User = await this._api.findById(this._id).toPromise();
-        console.log(data);
         this._form.patchValue(data);
         this._form.enable();
       } catch (error) {

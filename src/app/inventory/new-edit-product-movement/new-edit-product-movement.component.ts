@@ -69,7 +69,6 @@ export class NewEditProductMovementComponent extends FormComponent implements On
       this._core.savingOn();
       try {
         const data: ProductMovement = await this._api.findById(this._id).toPromise();
-        console.log(data);
         data.operationType = find(this.listOfOperationType.data, {id: this._form.value.operationTypeId})!;
         this._form.patchValue(data);
         this._form.enable();
