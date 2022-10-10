@@ -32,7 +32,6 @@ export class Api<T extends Main>  {
     }
 
     insert(obj: T, subR?: any): Observable<T> {
-        console.log(`${this._url}/${this._area}`);
         return this._http.post<T>(`${this._url}/${this._area}${!isNil(subR) ? `/${subR}` : ''}`,
             obj, { headers: this.headers });
     }

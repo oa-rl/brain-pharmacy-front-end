@@ -68,7 +68,6 @@ export class NewEditSaleComponent extends FormComponent implements OnInit {
         this.listOfDetails = this._form.value.saleInvoiceDetails;
         this._form.disable();
         this.displayContainer = false;
-        console.log(this._form.value);
       }
     }
   }
