@@ -53,6 +53,9 @@ export class LoginComponent extends FormComponent implements OnInit {
         this._core.isLogged = false;
       } finally {
         this.loading = false;
+        setTimeout(() => {
+            window.location.reload();
+        }, 0);
       }
     }
   }

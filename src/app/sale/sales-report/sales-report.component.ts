@@ -100,8 +100,6 @@ export class SalesReportComponent extends FormComponent implements OnInit {
       });
       this.listOfSaleInvoice.data = data;
     }
-
-    console.log(this.listOfSaleInvoice.data);
     
   }
 

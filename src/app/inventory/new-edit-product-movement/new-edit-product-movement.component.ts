@@ -51,9 +51,7 @@ export class NewEditProductMovementComponent extends FormComponent implements On
 
   async loadMaster() {
     const promise = await Promise.all([this._apiProductCombination.find().toPromise(), this._apiOperationType.find().toPromise()]);
-    console.log(promise);
     this.listOfProductsCombination = this.addJoinName(promise[0]);
-    console.log(this.listOfProductsCombination);
     this.listOfOperationType = promise[1];
   }
 

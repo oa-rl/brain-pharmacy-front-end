@@ -28,7 +28,6 @@ export abstract class FormComponent {
 
     setValue(file: string, fileId: string, list:Array<any>, name:string = 'name', id: string = 'id') {
         const data: string = this._form.value[file];
-        console.log(data);
         const isString: boolean = isNaN(parseInt(data));
         const key: string = isString ? name : id;
         const parseData: string | number = isString ? data : parseInt(data);
@@ -42,7 +41,6 @@ export abstract class FormComponent {
           this._form.patchValue({ [file]: null });
           this._form.patchValue({ [fileId]: null });
         }
-        console.log(this._form.value)
       }
 
       

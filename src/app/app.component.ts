@@ -19,6 +19,8 @@ export class AppComponent {
     core.getDecodeToken();
   }
 
-
+  setStatus() {
+    this.core.isLogged = false;
+  }
 
 }

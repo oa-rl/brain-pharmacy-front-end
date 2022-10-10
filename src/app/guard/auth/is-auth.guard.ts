@@ -12,7 +12,6 @@ export class IsAuthGuard implements CanActivate  {
   canActivate(  next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
     ): boolean {
-      console.log(this._core.isLogged);
     if(!isNil(this._storage.get('token'))) {
       this._core.isLogged = true;
       return true;

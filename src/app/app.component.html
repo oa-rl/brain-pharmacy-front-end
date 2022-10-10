@@ -26,7 +26,7 @@
         <li *ngIf="core.iHaveAccess(-5)"><div class="divider">Caja</div></li>
         <li *ngIf="core.iHaveAccess(11)"><a (click)="check()"   [routerLink]="['/sale/list']">Venta</a></li>
         <li *ngIf="core.iHaveAccess(12)"><a (click)="check()"   [routerLink]="['/sale/report']">Reporte de ventas</a></li>
-        <li><div class="divider"><a (click)="check()"  [routerLink]="['/public/login']">Salir</a></div></li>
+        <li><div class="divider"><a (click)="check(); setStatus()"  [routerLink]="['/public/login']">Salir</a></div></li>
       </ul>
     </div>
   </div>

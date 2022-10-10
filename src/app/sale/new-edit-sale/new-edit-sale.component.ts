@@ -104,7 +104,6 @@ export class NewEditSaleComponent extends FormComponent implements OnInit {
       this._core.savingOn();
       try {
         const data: SaleInvoice = await this._api.findById(this._id).toPromise();
-        console.log(data);
         this._form.patchValue(data);
         this._form.enable();
       } catch (error) {
