@@ -9,23 +9,24 @@
     <div class="drawer-side" >
       <label for="my-drawer" class="drawer-overlay"></label>
       <ul class="menu p-4 overflow-y-auto w-80 bg-base-100 text-base-content">
-        <li><div class="divider">Empresa</div></li>
-        <li><a (click)="check()"  [routerLink]="['/company/list']">Empresas</a></li>
-        <li><a (click)="check()"  [routerLink]="['/branch/list']">Sub-empresa</a></li>
-        <li><div class="divider">Inventario</div></li>
-        <li><a (click)="check()"  [routerLink]="['/inventory/product/list']">Producto</a></li>
-        <li><a (click)="check()"  [routerLink]="['/inventory/size/list']">Unidad de medida</a></li>
-        <li><a (click)="check()"  [routerLink]="['/inventory/medical-house/list']">Casa medica</a></li>
-        <li><a (click)="check()"  [routerLink]="['/inventory/product-combination/list']">Combinacion de productos</a></li>
-        <li><a (click)="check()"  [routerLink]="['/inventory/product-movement/list']">Movimiento</a></li>
-        <li><a (click)="check()"  [routerLink]="['/inventory/movement-report']">Reporte de movimiento</a></li>
-        <li><div class="divider">Usuario</div></li>
-        <li><a (click)="check()"  [routerLink]="['/user/list']">Usuario</a></li>
-        <li><div class="divider">Cliente</div></li>
-        <li><a (click)="check()"  [routerLink]="['/customer/list']">Cliente</a></li>
-        <li><div class="divider">Caja</div></li>
-        <li><a (click)="check()"  [routerLink]="['/sale/list']">Venta</a></li>
-        <li><a (click)="check()"  [routerLink]="['/sale/report']">Reporte de ventas</a></li>
+        <li *ngIf="core.iHaveAccess(-1)"><div class="divider">Empresa</div></li>
+        <li *ngIf="core.iHaveAccess(1)"><a (click)="check()"   [routerLink]="['/company/list']">Empresas</a></li>
+        <li *ngIf="core.iHaveAccess(2)"><a (click)="check()"   [routerLink]="['/branch/list']">Sub-empresa</a></li>
+        <li *ngIf="core.iHaveAccess(-2)"><div class="divider">Inventario</div></li>
+        <li *ngIf="core.iHaveAccess(3)"><a (click)="check()"   [routerLink]="['/inventory/product/list']">Producto</a></li>
+        <li *ngIf="core.iHaveAccess(4)"><a (click)="check()"   [routerLink]="['/inventory/size/list']">Unidad de medida</a></li>
+        <li *ngIf="core.iHaveAccess(5)"><a (click)="check()"   [routerLink]="['/inventory/medical-house/list']">Casa medica</a></li>
+        <li *ngIf="core.iHaveAccess(6)"><a (click)="check()"   [routerLink]="['/inventory/product-combination/list']">Combinacion de productos</a></li>
+        <li *ngIf="core.iHaveAccess(7)"><a (click)="check()"   [routerLink]="['/inventory/product-movement/list']">Movimiento</a></li>
+        <li *ngIf="core.iHaveAccess(8)"><a (click)="check()"   [routerLink]="['/inventory/movement-report']">Reporte de movimiento</a></li>
+        <li *ngIf="core.iHaveAccess(-3)"><div class="divider">Usuario</div></li>
+        <li *ngIf="core.iHaveAccess(9)"><a (click)="check()"   [routerLink]="['/user/list']">Usuario</a></li>
+        <li *ngIf="core.iHaveAccess(-4)"><div class="divider">Cliente</div></li>
+        <li *ngIf="core.iHaveAccess(10)"><a (click)="check()"   [routerLink]="['/customer/list']">Cliente</a></li>
+        <li *ngIf="core.iHaveAccess(-5)"><div class="divider">Caja</div></li>
+        <li *ngIf="core.iHaveAccess(11)"><a (click)="check()"   [routerLink]="['/sale/list']">Venta</a></li>
+        <li *ngIf="core.iHaveAccess(12)"><a (click)="check()"   [routerLink]="['/sale/report']">Reporte de ventas</a></li>
+        <li><div class="divider"><a (click)="check()"  [routerLink]="['/public/login']">Salir</a></div></li>
       </ul>
     </div>
   </div>

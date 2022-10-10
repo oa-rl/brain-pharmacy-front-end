@@ -16,6 +16,9 @@ export class AppComponent {
   }
 
   constructor(public core: CoreService) {
+    core.getDecodeToken();
   }
+
+
 
 }
