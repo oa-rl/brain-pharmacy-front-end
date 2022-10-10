@@ -7,6 +7,7 @@ import { FormComponent } from 'src/app/core/form.component';
 import { Api } from 'src/app/core/rest-api';
 import { BreadCrumbs, ObjData } from 'src/app/models/main';
 import { Login } from 'src/app/models/public.models';
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
 @Component({
   selector: 'brain-login',
@@ -49,13 +50,14 @@ export class LoginComponent extends FormComponent implements OnInit {
         this._storage.set('token',this._token.data);
         this._core.isLogged = true;
         this._route.navigate(['/sale/new']);
+        setTimeout(() => {
+          window.location.reload();
+      }, 0);
       } catch (error) {
         this._core.isLogged = false;
+        Notify.warning('Correo o contraseña son incorrectas');
       } finally {
         this.loading = false;
-        setTimeout(() => {
-            window.location.reload();
-        }, 0);
       }
     }
   }
