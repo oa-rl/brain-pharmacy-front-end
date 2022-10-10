@@ -35,23 +35,19 @@ export class NewEditComponent extends FormComponent implements OnInit {
     this._apiProfile = this._core.resource('Profile');
   }
 
-  ngOnInit(): void {
-    this.loadProfile();
-    this._id = Number((this.route.snapshot.paramMap.get('id') || 0)?.toString())!;
+  async ngOnInit() {
     this.initForm();
+    this._id = Number((this.route.snapshot.paramMap.get('id') || 0)?.toString())!;
+    await this.loadProfile();
     if(this._id !== 0) {
-      this.find();
+      await this.find();
+      this.findObj(this.listOfProfile.data,'profileId','profile');
     }
   }
 
   async loadProfile() {
     this.listOfProfile = await this._apiProfile.find().toPromise();
-    if(this._id !== 0) {
-      setTimeout(() => {
-        this.findObj(this.listOfProfile.data,'profileId','profileTemp');
-        
-      }, 0);
-    }
+    
   }
 
   async find() {
@@ -60,8 +56,8 @@ export class NewEditComponent extends FormComponent implements OnInit {
       this._core.savingOn();
       try {
         const data: User = await this._api.findById(this._id).toPromise();
+        console.log(data);
         this._form.patchValue(data);
-        this._form.patchValue({confirmPassword: data.password});
         this._form.enable();
       } catch (error) {
         
@@ -79,7 +75,7 @@ export class NewEditComponent extends FormComponent implements OnInit {
       email: [null, [Validators.required]],
       password: [null, [Validators.required]],
       confirmPassword: [null, [Validators.required]],
-      profileTemp: [null, [Validators.required]],
+      profile: [null, [Validators.required]],
       profileId: [null, [Validators.required]],
       
     });

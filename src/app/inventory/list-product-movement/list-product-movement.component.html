@@ -16,8 +16,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let product of productMovement?.data" brainRowSelected ngClass="border-b border-primary cursor-pointer"
-              (click)="find(product.id!)">
+              <tr *ngFor="let product of productMovement?.data" brainRowSelected ngClass="border-b border-primary cursor-pointer">
                 <td class=" text-center">{{product.operationType.sign}}</td>
                 <td class="border-l border-primary">{{product.productCombination.product?.name}} {{product.productCombination.amountSize}} {{product.productCombination.size?.name}} {{product.productCombination.medicalHouse?.name}} {{product.productCombination.saleFor?.name}}</td>
                 <td class="text-center border-l border-primary" >{{product.quantity}}</td>

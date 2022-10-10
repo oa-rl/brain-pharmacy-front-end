@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UntypedFormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { find } from 'lodash';
 import { CoreService } from 'src/app/core/core.service';
 import { FormComponent } from 'src/app/core/form.component';
 import { Api } from 'src/app/core/rest-api';
@@ -68,6 +69,8 @@ export class NewEditProductMovementComponent extends FormComponent implements On
       this._core.savingOn();
       try {
         const data: ProductMovement = await this._api.findById(this._id).toPromise();
+        console.log(data);
+        data.operationType = find(this.listOfOperationType.data, {id: this._form.value.operationTypeId})!;
         this._form.patchValue(data);
         this._form.enable();
       } catch (error) {
@@ -82,11 +85,11 @@ export class NewEditProductMovementComponent extends FormComponent implements On
   private initForm() {
     this._form = this.builder.group({
       id: 0,
-      productCombinationTemp: [null, [Validators.required]],
+      productCombination: [null, [Validators.required]],
       productCombinationId: [null, [Validators.required]],
       expirationDate: null,
       quantity:[null, [Validators.required]],
-      operationTypeTemp:[null, [Validators.required]],
+      operationType:[null, [Validators.required]],
       operationTypeId: [null, [Validators.required]],
     });
   }

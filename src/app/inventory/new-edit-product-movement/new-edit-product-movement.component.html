@@ -3,13 +3,13 @@
       <div class="flex flex-col w-full max-w-md">
         <brain-loading *ngIf="loading"></brain-loading>
           <brain-bread-crumbs [breadCrum]="breadCrum"></brain-bread-crumbs>
-          <input type="string" (focusout)="setValue('operationTypeTemp','operationTypeId', listOfOperationType!.data, 'description')" list="operationTypeKey" value placeholder="Tipo de movimiento" formControlName="operationTypeTemp"
-            [brainInputError]="inputHasError('operationTypeTemp')" ngClass="mt-5"/>
+          <input type="string" (focusout)="setValue('operationType','operationTypeId', listOfOperationType!.data, 'description')" list="operationTypeKey" value placeholder="Tipo de movimiento" formControlName="operationType"
+            [brainInputError]="inputHasError('operationType')" ngClass="mt-5"/>
             <datalist id="operationTypeKey">
                 <option *ngFor="let operationType of listOfOperationType?.data" [value]="operationType.description">Cod# {{operationType.id}}</option>
             </datalist>
-          <input type="string" (focusout)="setValue('productCombinationTemp','productCombinationId', listOfProductsCombination!.data, 'joinName')" list="productList" value placeholder="Producto" formControlName="productCombinationTemp"
-          [brainInputError]="inputHasError('productCombinationTemp')" [ngClass]="{'my-5': (form.value.operationTypeId !== 1), 'mt-5': (form.value.operationTypeId === 1)}"/>
+          <input type="string" (focusout)="setValue('productCombination','productCombinationId', listOfProductsCombination!.data, 'joinName')" list="productList" value placeholder="Producto" formControlName="productCombination"
+          [brainInputError]="inputHasError('productCombination')" [ngClass]="{'my-5': (form.value.operationTypeId !== 1), 'mt-5': (form.value.operationTypeId === 1)}"/>
           <datalist id="productList">
               <option *ngFor="let product of listOfProductsCombination?.data" value="{{product.product?.name}} {{product.amountSize}} {{product.size?.name}} {{product.medicalHouse?.name}} ({{product.saleFor?.name}})">Cod# {{product.id}}</option>
           </datalist>
