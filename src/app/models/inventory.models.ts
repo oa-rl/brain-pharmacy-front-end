@@ -24,7 +24,8 @@ export interface ProductCombination extends Main {
     saleForId: number,
     amountSale: number,
     price: number,
-    joinName?: string
+    joinName?: string,
+    existence?: number
 }
 
 export interface SaleFor extends Main {

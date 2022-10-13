@@ -11,7 +11,7 @@
       <input #productCombinationInput type="string" (focusout)="setValue('productCombinationTemp','productCombinationId', listOfProductsCombination!.data, 'joinName'); setProductCombination()" list="productList" value placeholder="Producto" formControlName="productCombinationTemp"
            class="input input-bordered input-primary w-full my-5"/>
           <datalist id="productList">
-              <option *ngFor="let product of listOfProductsCombination?.data" value="{{product.product?.name}} {{product.amountSize}} {{product.size?.name}} {{product.medicalHouse?.name}} ({{product.saleFor?.name}})">Cod# {{product.id}}</option>
+              <option *ngFor="let product of listOfProductsCombination?.data" value="{{product.product?.name}} {{product.amountSize}} {{product.size?.name}} {{product.medicalHouse?.name}} ({{product.saleFor?.name}}) => {{product.existence}}">Cod# {{product.id}}</option>
           </datalist>
       <input formControlName="quantity" (focusout)="addRow()" type="number" placeholder="Cantidad"
         class="input input-bordered input-primary w-full mb-5" />

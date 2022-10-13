@@ -100,6 +100,8 @@ export class NewEditProductMovementComponent extends FormComponent implements On
         if(this._form.value.operationTypeId === 1) {
           this._form.value.expirationDate = this._core.stringToDate(this._form.value.expirationDate)
         }
+        delete this._form.value.operationType;
+        delete this._form.value.productCombination;
         await this._api[opt](this._form.value).toPromise();
         this.goBack();
         this.notifySuccess();

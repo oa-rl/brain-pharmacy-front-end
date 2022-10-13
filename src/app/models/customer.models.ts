@@ -5,5 +5,5 @@ export interface User extends Main {
     lastName: string,
     email: string,
     password: string
-    profileId: number,
+    profileId: number
 }

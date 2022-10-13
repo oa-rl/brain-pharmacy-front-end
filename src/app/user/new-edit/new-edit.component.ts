@@ -85,6 +85,10 @@ export class NewEditComponent extends FormComponent implements OnInit {
     if (value && this.formIsValid()) {
       try {
         const opt = (this._id === 0) ? 'insert' : 'update';
+
+        delete this._form.value.confirmPassword
+        delete this._form.value.profile
+        console.log(this._form.value);
         await this._api[opt](this._form.value).toPromise();
         this.goBack();
         this.notifySuccess();
